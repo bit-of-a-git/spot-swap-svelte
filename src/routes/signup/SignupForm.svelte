@@ -12,7 +12,7 @@
 	async function signup() {
 		const success = false;
 		if (success) {
-			goto('/donate');
+			goto('/dashboard');
 		} else {
 			message = 'Error Trying to sign up';
 		}
