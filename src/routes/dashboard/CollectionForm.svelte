@@ -1,43 +1,29 @@
 <script lang="ts">
-	const countyList = [
-		'Antrim',
-		'Armagh',
-		'Carlow',
-		'Cavan',
-		'Clare',
-		'Cork',
-		'Derry',
-		'Donegal',
-		'Down',
-		'Dublin',
-		'Fermanagh',
-		'Galway',
-		'Kerry',
-		'Kildare',
-		'Kilkenny',
-		'Laois',
-		'Leitrim',
-		'Limerick',
-		'Longford',
-		'Louth',
-		'Mayo',
-		'Meath',
-		'Monaghan',
-		'Offaly',
-		'Roscommon',
-		'Sligo',
-		'Tipperary',
-		'Tyrone',
-		'Waterford',
-		'Westmeath',
-		'Wexford',
-		'Wicklow'
-	];
+	import { loggedInUser } from '$lib/runes.svelte';
+	import { spotswapService } from '$lib/services/spotswap-service';
+	import type { Collection } from '$lib/types/collection-types.ts';
+	import { countyList } from '$lib/constants/counties';
 
-	let title = $state(0);
-	let selectedCounty = $state('Galway');
+	let title = $state('');
+	let selectedCounty = $state('');
+	let message = $state('Please add a collection');
 
 	async function addCollection() {
+		if (title && selectedCounty) {
+			const collection: Collection = {
+				title: title,
+				county: selectedCounty,
+				userId: loggedInUser._id
+			};
+			const success = await spotswapService.addCollection(collection, loggedInUser.token);
+			if (!success) {
+				message = 'Failed to add collection - an error occurred';
+				return;
+			}
+			message = `You added the ${title} collection in Co. ${selectedCounty}`;
+		} else {
+			message = 'Please fill in all fields';
+		}
 		console.log(`Just added collection: ${title} to ${selectedCounty}`);
 		// console.log(`lat: ${lat}, lng: ${lng}`);
 	}
@@ -60,6 +46,7 @@
 			<label class="label" for="county">County</label>
 			<div class="select">
 				<select bind:value={selectedCounty}>
+					<option value="" selected>All Counties</option>
 					{#each countyList as county}
 						<option value={county}>Co. {county}</option>
 					{/each}

@@ -1,25 +1,12 @@
 <script lang="ts">
-	export let collections = [
-		{
-			title: 'Best views in Sligo',
-			user: 'bart@simpson.com'
-		},
-		{
-			title: 'Quiet Man spots in Cong',
-			user: 'marge@simpson.com'
-		},
-		{
-			title: 'Titanic locations in Belfast',
-			user: 'homer@simpson.com'
-		}
-	];
+	let { collections } = $props();
 </script>
 
 <table class="table is-fullwidth">
 	<thead>
 		<tr>
 			<th>Title</th>
-			<th>User</th>
+			<th>County</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -29,7 +16,7 @@
 					{collection.title}
 				</td>
 				<td>
-					{collection.user}
+					{collection.county}
 				</td>
 			</tr>
 		{/each}
