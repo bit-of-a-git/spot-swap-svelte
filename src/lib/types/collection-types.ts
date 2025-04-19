@@ -15,5 +15,5 @@ export interface User {
 export interface Collection {
 	title: string;
 	county: string;
-	userId: User | string;
+	userId?: User | string;
 }

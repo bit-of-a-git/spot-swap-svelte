@@ -12,8 +12,7 @@
 		if (title && selectedCounty) {
 			const collection: Collection = {
 				title: title,
-				county: selectedCounty,
-				userId: loggedInUser._id
+				county: selectedCounty
 			};
 			const success = await spotswapService.addCollection(collection, loggedInUser.token);
 			if (!success) {
