@@ -6,5 +6,6 @@
 	loggedInUser.name = '';
 	loggedInUser.token = '';
 	loggedInUser._id = '';
+	localStorage.removeItem('spotswap');
 	goto('/');
 </script>
