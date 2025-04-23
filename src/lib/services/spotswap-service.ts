@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Session, User, Collection } from '$lib/types/collection-types';
+import type { Session, User, Collection, Spot } from '$lib/types/collection-types';
 
 export const spotswapService = {
 	baseUrl: 'http://localhost:3000',
@@ -51,21 +51,43 @@ export const spotswapService = {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 			const response = await axios.get(this.baseUrl + '/api/collections');
-			return response.data;
+			return response.data as Collection[];
 		} catch (error) {
 			console.log(error);
 			return [];
 		}
 	},
 
-	async getUserCollections(token: string, id: string): Promise<Collection[]> {
+	async getUserCollections(id: string, token: string): Promise<Collection[]> {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 			const response = await axios.get(this.baseUrl + '/api/collections/user/' + id);
-			return response.data;
+			return response.data as Collection[];
 		} catch (error) {
 			console.log(error);
 			return [];
+		}
+	},
+
+	async getCollectionById(id: string, token: string): Promise<Collection | null> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.get(this.baseUrl + '/api/collections/' + id);
+			return response.data as Collection;
+		} catch (error) {
+			console.log(error);
+			return null;
+		}
+	},
+
+	async addSpot(id: string, spot: Spot, token: string): Promise<Spot | null> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.post(this.baseUrl + '/api/collections/' + id + '/spots', spot);
+			return response.data as Spot;
+		} catch (error) {
+			console.log(error);
+			return null;
 		}
 	}
 };

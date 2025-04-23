@@ -1,3 +1,15 @@
+export const categoryList = [
+	'Adventure & Sports',
+	'Art & Culture',
+	'Food & Drink',
+	'Historical Sites',
+	'Nature & Outdoors',
+	'Nightlife & Entertainment',
+	'Relaxation & Wellness',
+	'Shopping',
+	'Unusual Experiences'
+];
+
 export const countyList = [
 	'Antrim',
 	'Armagh',

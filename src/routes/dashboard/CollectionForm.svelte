@@ -2,11 +2,11 @@
 	import { loggedInUser } from '$lib/runes.svelte';
 	import { spotswapService } from '$lib/services/spotswap-service';
 	import type { Collection } from '$lib/types/collection-types.ts';
-	import { countyList } from '$lib/constants/counties';
+	import { countyList } from '$lib/constants';
 
-	let title = $state('');
-	let selectedCounty = $state('');
-	let message = $state('Please add a collection');
+	let title = '';
+	let selectedCounty = '';
+	let message = '';
 
 	async function addCollection() {
 		if (title && selectedCounty) {
@@ -24,7 +24,6 @@
 			message = 'Please fill in all fields';
 		}
 		console.log(`Just added collection: ${title} to ${selectedCounty}`);
-		// console.log(`lat: ${lat}, lng: ${lng}`);
 	}
 </script>
 
@@ -44,8 +43,7 @@
 		<div class="field">
 			<label class="label" for="county">County</label>
 			<div class="select">
-				<select bind:value={selectedCounty}>
-					<option value="" selected>All Counties</option>
+				<select bind:value={selectedCounty} required>
 					{#each countyList as county}
 						<option value={county}>Co. {county}</option>
 					{/each}

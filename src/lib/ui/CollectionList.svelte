@@ -7,6 +7,7 @@
 		<tr>
 			<th>Title</th>
 			<th>County</th>
+			<th>Spots</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -16,7 +17,15 @@
 					{collection.title}
 				</td>
 				<td>
-					{collection.county}
+					Co. {collection.county}
+				</td>
+				<td>
+					<a
+						href={`/collection/${collection._id}`}
+						aria-label={`Open ${collection.title} collection`}
+					>
+						<i class="fas fa-folder-open"></i>
+					</a>
 				</td>
 			</tr>
 		{/each}

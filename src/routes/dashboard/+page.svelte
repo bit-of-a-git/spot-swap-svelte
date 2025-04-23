@@ -7,11 +7,11 @@
 	import type { Collection } from '$lib/types/collection-types.ts';
 	import CollectionList from '$lib/ui/CollectionList.svelte';
 
-	subTitle.text = 'Add a Collection';
+	subTitle.text = 'Dashboard';
 	let collections: Collection[] = [];
 
 	onMount(async () => {
-		collections = await spotswapService.getUserCollections(loggedInUser.token, loggedInUser._id);
+		collections = await spotswapService.getUserCollections(loggedInUser._id, loggedInUser.token);
 	});
 </script>
 

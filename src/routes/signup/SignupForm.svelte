@@ -3,11 +3,11 @@
 	import UserCredentials from '$lib/ui/UserCredentials.svelte';
 	import UserDetails from '$lib/ui/UserDetails.svelte';
 
-	let firstName = $state('');
-	let lastName = $state('');
-	let email = $state('');
-	let password = $state('');
-	let message = $state('');
+	let firstName = '';
+	let lastName = '';
+	let email = '';
+	let password = '';
+	let message = '';
 
 	async function signup() {
 		const success = false;
