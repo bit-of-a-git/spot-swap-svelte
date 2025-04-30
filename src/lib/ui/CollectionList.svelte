@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { collections } = $props();
+	import { currentCollections } from '$lib/runes.svelte';
 </script>
 
 <table class="table is-fullwidth">
@@ -11,7 +11,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#each collections as collection}
+		{#each currentCollections.collections as collection}
 			<tr>
 				<td>
 					{collection.title}
