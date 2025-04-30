@@ -3,7 +3,7 @@ import type { Session, User, Collection, Spot } from '$lib/types/collection-type
 import { currentCollections, loggedInUser } from '$lib/runes.svelte';
 
 export const spotswapService = {
-	baseUrl: 'http://localhost:3000',
+	baseUrl: 'https://rough-eminent-mailbox.glitch.me',
 
 	async signup(user: User): Promise<boolean> {
 		try {
