@@ -28,6 +28,7 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "^5.27.0",
 		"svelte-check": "^4.1.6",
+		"svelte-frappe-charts": "^1.10.0",
 		"tslib": "^2.8.1",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.0"
