@@ -3,7 +3,7 @@ import type { Session, User, Collection, Spot } from '$lib/types/collection-type
 import { currentCollections, loggedInUser } from '$lib/runes.svelte';
 
 export const spotswapService = {
-	baseUrl: 'http://localhost:3000',
+	baseUrl: import.meta.env.VITE_BACKEND_API_URL,
 
 	async signup(user: User): Promise<boolean> {
 		try {
