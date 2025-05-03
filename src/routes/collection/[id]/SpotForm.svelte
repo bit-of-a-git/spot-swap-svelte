@@ -11,7 +11,7 @@
 	let longitude = $state(0);
 	let message = $state('Please add a collection');
 
-	let { id } = $props();
+	let { id, spotEvent = null } = $props();
 
 	async function addSpot() {
 		const spot: Spot = {
@@ -26,7 +26,10 @@
 			message = 'Failed to add spot - an error occurred';
 			return;
 		}
-		message = `You added ${name} spot to ${selectedCategory}`;
+		if (spotEvent) {
+			spotEvent(spot);
+			message = `You added ${name} spot to ${selectedCategory}`;
+		}
 	}
 </script>
 

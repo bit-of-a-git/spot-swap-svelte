@@ -15,6 +15,8 @@
 			<div class="navbar-end">
 				<a class="navbar-item" href="/dashboard"> Dashboard </a>
 				<a class="navbar-item" href="/report"> Report </a>
+				<a class="navbar-item" href="/charts"> Charts </a>
+				<a class="navbar-item" href="/maps"> Maps </a>
 				<a class="navbar-item" href="/logout"> Logout [{loggedInUser.name}]</a>
 			</div>
 			<div></div>
