@@ -22,12 +22,25 @@ export function userComputeByCounty(collectionList: Collection[]) {
 	});
 }
 
-export function computeByCategory(spotList: Spot[]) {
-	spotList.forEach((spot) => {
-		const categoryIndex = categoryList.indexOf(spot.category);
-		if (categoryIndex !== -1) {
-			currentDataSets.spotsByCategory.datasets[0].values[categoryIndex] += 1;
-		}
+export function computeByCategory(collectionList: Collection[]) {
+	collectionList.forEach((collection) => {
+		collection.spots.forEach((spot) => {
+			const categoryIndex = categoryList.indexOf(spot.category);
+			if (categoryIndex !== -1) {
+				currentDataSets.spotsByCategory.datasets[0].values[categoryIndex] += 1;
+			}
+		});
+	});
+}
+
+export function userComputeByCategory(collectionList: Collection[]) {
+	collectionList.forEach((collection) => {
+		collection.spots.forEach((spot) => {
+			const categoryIndex = categoryList.indexOf(spot.category);
+			if (categoryIndex !== -1) {
+				currentDataSets.userSpotsByCategory.datasets[0].values[categoryIndex] += 1;
+			}
+		});
 	});
 }
 
