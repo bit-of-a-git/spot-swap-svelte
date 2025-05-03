@@ -4,10 +4,14 @@ import {
 	currentCollections,
 	userCollections,
 	loggedInUser,
-	currentSpots,
 	currentDataSets
 } from '$lib/runes.svelte';
-import { computeByCategory, computeByCounty, userComputeByCounty } from './collection-utils';
+import {
+	computeByCategory,
+	computeByCounty,
+	userComputeByCategory,
+	userComputeByCounty
+} from './collection-utils';
 import { categoryList, countyList } from '$lib/constants';
 
 export const spotswapService = {
@@ -137,7 +141,6 @@ export const spotswapService = {
 	clearSession() {
 		currentCollections.collections = [];
 		userCollections.collections = [];
-		currentSpots.spots = [];
 		loggedInUser.email = '';
 		loggedInUser.name = '';
 		loggedInUser.token = '';
@@ -152,15 +155,16 @@ export const spotswapService = {
 				loggedInUser.token
 			);
 			currentCollections.collections = await this.getCollections(loggedInUser.token);
-			currentSpots.spots = await this.getSpots(loggedInUser.token);
 
 			currentDataSets.collectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
 			currentDataSets.spotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
 			currentDataSets.userCollectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
+			currentDataSets.userSpotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
 
 			computeByCounty(currentCollections.collections);
 			userComputeByCounty(userCollections.collections);
-			computeByCategory(currentSpots.spots);
+			computeByCategory(currentCollections.collections);
+			userComputeByCategory(userCollections.collections);
 		}
 	}
 };
