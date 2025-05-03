@@ -12,9 +12,6 @@ export const loggedInUser = $state({
 export const currentCollections = $state({ collections: [] as Collection[] });
 export const userCollections = $state({ collections: [] as Collection[] });
 
-export const currentSpots = $state({ spots: [] as Spot[] });
-export const userSpots = $state({ spots: [] as Spot[] });
-
 export const currentDataSets = $state({
 	collectionsByCounty: {
 		labels: countyList,
@@ -34,6 +31,14 @@ export const currentDataSets = $state({
 	},
 	userCollectionsByCounty: {
 		labels: countyList,
+		datasets: [
+			{
+				values: Array(countyList.length).fill(0)
+			}
+		]
+	},
+	userSpotsByCategory: {
+		labels: categoryList,
 		datasets: [
 			{
 				values: Array(countyList.length).fill(0)
