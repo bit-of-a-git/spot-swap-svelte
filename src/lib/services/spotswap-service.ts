@@ -96,6 +96,21 @@ export const spotswapService = {
 		}
 	},
 
+	async deleteCollection(id: string, token: string): Promise<boolean> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.delete(this.baseUrl + '/api/collections/' + id);
+			if (response.status == 204) {
+				await this.refreshCollectionInfo();
+				return true;
+			}
+			return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	},
+
 	async addSpot(id: string, spot: Spot, token: string): Promise<Spot | null> {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;

@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { userCollections } from '$lib/runes.svelte';
+	import { userCollections, loggedInUser } from '$lib/runes.svelte';
+	import { spotswapService } from '$lib/services/spotswap-service';
+
+	async function deleteCollection(collectionId: string) {
+		await spotswapService.deleteCollection(collectionId, loggedInUser.token);
+	}
 </script>
 
 <table class="table is-fullwidth">
@@ -7,7 +12,7 @@
 		<tr>
 			<th>Title</th>
 			<th>County</th>
-			<th>Spots</th>
+			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,7 +29,13 @@
 						href={`/collection/${collection._id}`}
 						aria-label={`Open ${collection.title} collection`}
 					>
-						<i class="fas fa-folder-open"></i>
+						<i class="fas fa-folder-open is-pulled-left"></i>
+					</a>
+					<a
+						aria-label={`Delete ${collection.title} collection`}
+						on:click={() => deleteCollection(collection._id)}
+					>
+						<i class="fas fa-trash is-pulled-right" aria-hidden="true"></i>
 					</a>
 				</td>
 			</tr>
