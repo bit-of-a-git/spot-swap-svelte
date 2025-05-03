@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import { refreshDonationMap } from '$lib/services/collection-utils';
 
-	subTitle.text = 'Donations Geo Data';
+	subTitle.text = 'Spot Geo Data';
 	let map: LeafletMap;
 
 	onMount(async () => {
@@ -13,6 +13,6 @@
 	});
 </script>
 
-<Card title="Donations Locations">
+<Card title="Spot Locations">
 	<LeafletMap height={60} bind:this={map} />
 </Card>
