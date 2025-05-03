@@ -15,7 +15,7 @@
 		</Card>
 	</div>
 	<div class="column">
-		<Card title="Collections By County">
+		<Card title="Spots By Category">
 			<Chart data={currentDataSets.spotsByCategory} type="line" />
 		</Card>
 	</div>

@@ -1,6 +1,8 @@
 import { categoryList, countyList } from '$lib/constants';
-import { currentDataSets } from '$lib/runes.svelte';
+import { currentDataSets, loggedInUser } from '$lib/runes.svelte';
 import type { Collection, Spot } from '$lib/types/collection-types';
+import { spotswapService } from './spotswap-service';
+import LeafletMap from '$lib/ui/LeafletMap.svelte';
 
 export function computeByCounty(collectionList: Collection[]) {
 	collectionList.forEach((collection) => {
@@ -27,4 +29,15 @@ export function computeByCategory(spotList: Spot[]) {
 			currentDataSets.spotsByCategory.datasets[0].values[categoryIndex] += 1;
 		}
 	});
+}
+
+export async function refreshDonationMap(map: LeafletMap) {
+	if (!loggedInUser.token) spotswapService.restoreSession();
+	const spots = await spotswapService.getSpots(loggedInUser.token);
+	spots.forEach((spot: Spot) => {
+		const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
+		map.addMarker(spot.latitude, spot.longitude, popup);
+	});
+	const lastSpot = spots[spots.length - 1];
+	if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
 }
