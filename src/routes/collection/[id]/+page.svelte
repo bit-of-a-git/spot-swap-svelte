@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { currentDataSets, loggedInUser, subTitle } from '$lib/runes.svelte.js';
+	import { subTitle } from '$lib/runes.svelte.js';
 	import Card from '$lib/ui/Card.svelte';
 	import SpotList from '$lib/ui/SpotList.svelte';
 	import SpotForm from './SpotForm.svelte';
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
 	import type { Spot, Collection } from '$lib/types/collection-types';
-	import { spotswapService } from '$lib/services/spotswap-service';
 	import { onMount } from 'svelte';
 
 	export let data: Collection;
