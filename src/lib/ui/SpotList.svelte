@@ -1,5 +1,12 @@
 <script lang="ts">
+	import { loggedInUser } from '$lib/runes.svelte';
+	import { spotswapService } from '$lib/services/spotswap-service';
+
 	let { collection } = $props();
+
+	async function deleteSpot(spotId: string) {
+		const success = await spotswapService.deleteSpot(spotId, loggedInUser.token);
+	}
 </script>
 
 <table class="table is-fullwidth">
@@ -10,6 +17,7 @@
 			<th>Description</th>
 			<th>Lat</th>
 			<th>Long</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,6 +38,11 @@
 				<td>
 					{spot.longitude}
 				</td>
+				<td>
+					<a aria-label={`Delete ${spot.name} spot`} on:click={() => deleteSpot(spot._id)}>
+						<i class="fas fa-trash" aria-hidden="true"></i>
+					</a></td
+				>
 			</tr>
 		{/each}
 	</tbody>
