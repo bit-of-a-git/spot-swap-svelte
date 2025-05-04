@@ -3,13 +3,13 @@
 	import Card from '$lib/ui/Card.svelte';
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
 	import { onMount } from 'svelte';
-	import { refreshDonationMap } from '$lib/services/collection-utils';
+	import { refreshCollectionMap } from '$lib/services/collection-utils';
 
 	subTitle.text = 'Spot Geo Data';
 	let map: LeafletMap;
 
 	onMount(async () => {
-		await refreshDonationMap(map);
+		await refreshCollectionMap(map);
 	});
 </script>
 

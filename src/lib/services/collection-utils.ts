@@ -44,7 +44,7 @@ export function userComputeByCategory(collectionList: Collection[]) {
 	});
 }
 
-export async function refreshDonationMap(map: LeafletMap) {
+export async function refreshCollectionMap(map: LeafletMap) {
 	if (!loggedInUser.token) spotswapService.restoreSession();
 	const spots = await spotswapService.getSpots(loggedInUser.token);
 	spots.forEach((spot: Spot) => {

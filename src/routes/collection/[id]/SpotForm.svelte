@@ -31,10 +31,42 @@
 			message = `You added ${name} spot to ${selectedCategory}`;
 		}
 	}
+
+	// Geolocation function
+	// https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
+	function geoFindMe() {
+		const status = document.querySelector('#geo-status');
+
+		function success(position: GeolocationPosition) {
+			latitude = parseFloat(position.coords.latitude.toFixed(6)); // Update latitude directly
+			longitude = parseFloat(position.coords.longitude.toFixed(6)); // Update longitude directly
+
+			if (status) {
+				status.textContent = '';
+			}
+		}
+
+		function error() {
+			if (status) {
+				status.textContent = 'Unable to retrieve your location';
+			}
+		}
+
+		if (!navigator.geolocation) {
+			if (status) {
+				status.textContent = 'Geolocation is not supported by your browser';
+			}
+		} else {
+			if (status) {
+				status.textContent = 'Locating…';
+			}
+			navigator.geolocation.getCurrentPosition(success, error);
+		}
+	}
 </script>
 
-<div class="field is-horizontal">
-	<div class="field-body">
+<div class="columns">
+	<div class="column is-one-third">
 		<div class="field">
 			<label class="label" for="title">Name</label>
 			<input
@@ -46,6 +78,8 @@
 				placeholder="Enter spot name"
 			/>
 		</div>
+	</div>
+	<div class="column is-one-third">
 		<div class="field">
 			<label class="label" for="county">Description</label>
 			<input
@@ -56,6 +90,8 @@
 				name="description"
 			/>
 		</div>
+	</div>
+	<div class="column is-one-third">
 		<div class="field">
 			<label class="label" for="category">Category</label>
 			<div class="select">
@@ -66,6 +102,10 @@
 				</select>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="columns">
+	<div class="column is-one-third">
 		<div class="field">
 			<label class="label has-text-white-ter">Latitude</label>
 			<input
@@ -81,6 +121,8 @@
 				required
 			/>
 		</div>
+	</div>
+	<div class="column is-one-third">
 		<div class="field">
 			<label class="label has-text-white-ter">Longitude</label>
 			<input
@@ -97,9 +139,17 @@
 			/>
 		</div>
 	</div>
+	<div class="column is-one-third align-bottom">
+		<div class="field">
+			<p id="geo-status" class="has-text-white-ter"></p>
+			<button onclick={() => geoFindMe()} class="button is-info" type="button"
+				>Use my current location</button
+			>
+		</div>
+	</div>
 </div>
 <div class="field">
 	<div class="control">
-		<button onclick={() => addSpot()} class="button is-success is-fullwidth">Add Spot</button>
+		<button onclick={() => addSpot()} class="button is-success">Add</button>
 	</div>
 </div>
