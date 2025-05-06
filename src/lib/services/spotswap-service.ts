@@ -40,8 +40,6 @@ export const spotswapService = {
 					token: response.data.token,
 					_id: response.data._id
 				};
-				this.saveSession(session, email);
-				await this.refreshCollectionInfo();
 				return session;
 			}
 			return null;
@@ -55,8 +53,7 @@ export const spotswapService = {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 			const response = await axios.post(this.baseUrl + '/api/collections', collection);
-			await this.refreshCollectionInfo();
-			return response.status == 200;
+			return response.data;
 		} catch (error) {
 			console.log(error);
 			return false;
