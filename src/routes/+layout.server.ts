@@ -1,4 +1,4 @@
-import type { Session } from '$lib/types/collection-types';
+import type { Session } from '$lib/types/spotswap-types';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = ({ cookies }) => {
