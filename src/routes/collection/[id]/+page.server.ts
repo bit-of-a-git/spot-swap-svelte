@@ -2,11 +2,10 @@ import { spotswapService } from '$lib/services/spotswap-service';
 import type { Session } from '$lib/types/collection-types';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ cookies, params }) => {
+export const load: PageServerLoad = async ({ parent, params }) => {
 	const { id } = params;
-	const cookieStr = cookies.get('spotswap-user') as string;
-	if (cookieStr && id) {
-		const session = JSON.parse(cookieStr) as Session;
+	const { session } = await parent();
+	if (session && id) {
 		const collection = await spotswapService.getCollectionById(id, session.token);
 		console.log(collection);
 		return {

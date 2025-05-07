@@ -11,7 +11,9 @@
 </script>
 
 {#each currentCollections.collections as collection}
-	<Card title={`${collection.title}`}>
-		<SpotList {collection} />
-	</Card>
+	{#if collection.spots.length > 0}
+		<Card title={`${collection.title}`}>
+			<SpotList {collection} />
+		</Card>
+	{/if}
 {/each}
