@@ -1,11 +1,17 @@
 <script lang="ts">
-	import { subTitle } from '$lib/runes.svelte';
 	import { currentDataSets } from '$lib/runes.svelte';
 	// @ts-ignore
 	import Chart from 'svelte-frappe-charts';
 	import Card from '$lib/ui/Card.svelte';
+	import type { PageProps } from '../$types';
+	import { subTitle } from '$lib/runes.svelte';
 	import { CollapsibleCard } from 'svelte-collapsible';
 
+	import { refreshSpotswapState, refreshUserState } from '$lib/services/collection-utils';
+
+	let { data } = $$props as PageProps;
+	refreshSpotswapState(data.collections);
+	refreshUserState(data.userCollections);
 	subTitle.text = 'Analytics';
 </script>
 

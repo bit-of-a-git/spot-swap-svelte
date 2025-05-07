@@ -1,5 +1,10 @@
 import { categoryList, countyList } from '$lib/constants';
-import { currentDataSets, loggedInUser } from '$lib/runes.svelte';
+import {
+	currentDataSets,
+	loggedInUser,
+	currentCollections,
+	userCollections
+} from '$lib/runes.svelte';
 import type { Collection, Spot } from '$lib/types/collection-types';
 import { spotswapService } from './spotswap-service';
 import LeafletMap from '$lib/ui/LeafletMap.svelte';
@@ -53,4 +58,33 @@ export async function refreshCollectionMap(map: LeafletMap) {
 	});
 	const lastSpot = spots[spots.length - 1];
 	if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
+}
+
+export async function refreshSpotswapState(collections: Collection[]) {
+	currentCollections.collections = collections;
+
+	currentDataSets.collectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
+	currentDataSets.spotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
+
+	computeByCounty(currentCollections.collections);
+	computeByCategory(currentCollections.collections);
+}
+
+export async function refreshUserState(collections: Collection[]) {
+	userCollections.collections = collections;
+
+	currentDataSets.userCollectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
+	currentDataSets.userSpotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
+
+	userComputeByCounty(userCollections.collections);
+	userComputeByCategory(userCollections.collections);
+}
+
+export function clearSpotswapState() {
+	currentCollections.collections = [];
+	userCollections.collections = [];
+	loggedInUser.email = '';
+	loggedInUser.name = '';
+	loggedInUser.token = '';
+	loggedInUser._id = '';
 }
