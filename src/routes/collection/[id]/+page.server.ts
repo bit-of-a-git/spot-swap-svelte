@@ -1,5 +1,5 @@
 import { spotswapService } from '$lib/services/spotswap-service';
-import type { Session } from '$lib/types/collection-types';
+import type { Session } from '$lib/types/spotswap-types';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ parent, params }) => {

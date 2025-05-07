@@ -6,7 +6,7 @@
 	import CollectionList from '$lib/ui/CollectionList.svelte';
 	import { onMount } from 'svelte';
 	import { refreshUserState } from '$lib/services/collection-utils';
-	import type { Collection } from '$lib/types/collection-types';
+	import type { Collection } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
 
 	subTitle.text = 'Dashboard';

@@ -16,8 +16,8 @@ export interface Collection {
 	title: string;
 	county: string;
 	userId?: User | string;
-	spots: Spot[];
-	_id: string;
+	spots?: Spot[];
+	_id?: string;
 }
 
 export interface Spot {

@@ -6,7 +6,7 @@
 	import SpotList from '$lib/ui/SpotList.svelte';
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
 	import { onMount } from 'svelte';
-	import type { Spot } from '$lib/types/collection-types';
+	import type { Spot } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

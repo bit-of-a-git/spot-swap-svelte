@@ -5,7 +5,7 @@ import {
 	currentCollections,
 	userCollections
 } from '$lib/runes.svelte';
-import type { Collection, Spot } from '$lib/types/collection-types';
+import type { Collection, Spot } from '$lib/types/spotswap-types';
 import { spotswapService } from './spotswap-service';
 import LeafletMap from '$lib/ui/LeafletMap.svelte';
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Session, User, Collection, Spot } from '$lib/types/collection-types';
+import type { Session, User, Collection, Spot } from '$lib/types/spotswap-types';
 import {
 	currentCollections,
 	userCollections,
