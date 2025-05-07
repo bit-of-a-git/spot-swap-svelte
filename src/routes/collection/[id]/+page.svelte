@@ -1,29 +1,40 @@
 <script lang="ts">
 	import { subTitle } from '$lib/runes.svelte.js';
+	import type { ActionResult } from '@sveltejs/kit';
 	import Card from '$lib/ui/Card.svelte';
-	import SpotList from '$lib/ui/SpotList.svelte';
 	import SpotForm from './SpotForm.svelte';
+	import SpotList from '$lib/ui/SpotList.svelte';
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
-	import type { Spot, Collection } from '$lib/types/collection-types';
 	import { onMount } from 'svelte';
+	import type { Spot } from '$lib/types/collection-types';
+	import type { PageProps } from './$types';
 
-	export let data: Collection;
+	let { data }: PageProps = $props();
+	let message = $state('');
 
-	subTitle.text = data.title;
+	const handleSpotSuccess = () => {
+		return async ({ result }: { result: ActionResult }) => {
+			if (result.type === 'success') {
+				const spot = result.data as Spot;
+				data.collection.spots.push(spot);
+				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
+				map.addMarker(spot.latitude, spot.longitude, popup);
+				message = `You added a "${spot.name}" spot to the ${data.collection.title} collection`;
+			}
+		};
+	};
+
 	let map: LeafletMap;
 
-	function spotAdded(spot: Spot) {
-		map.addMarker(spot.latitude, spot.longitude, '');
-		map.moveTo(spot.latitude, spot.longitude);
-	}
-
 	onMount(async () => {
-		if (data.spots.length > 0) {
-			data.spots.forEach((spot: Spot) => {
+		subTitle.text = data.collection.title;
+		const spots = data.collection.spots;
+		if (spots.length > 0) {
+			spots.forEach((spot: Spot) => {
 				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 				map.addMarker(spot.latitude, spot.longitude, popup);
 			});
-			const lastSpot = data.spots[data.spots.length - 1];
+			const lastSpot = spots[spots.length - 1];
 			if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
 		}
 	});
@@ -33,10 +44,12 @@
 	<LeafletMap height={30} bind:this={map} />
 </Card>
 
-<Card title="Collection">
-	<SpotList collection={data} />
-</Card>
+{#if data.collection.spots.length > 0}
+	<Card title="Collection">
+		<SpotList collection={data.collection} />
+	</Card>
+{/if}
 
 <Card title="Add Spot">
-	<SpotForm id={data._id} spotEvent={spotAdded} />
+	<SpotForm enhanceFn={handleSpotSuccess} {message} />
 </Card>
