@@ -1,5 +1,10 @@
 import { categoryList, countyList } from '$lib/constants';
-import { currentDataSets, loggedInUser } from '$lib/runes.svelte';
+import {
+	currentDataSets,
+	loggedInUser,
+	currentCollections,
+	userCollections
+} from '$lib/runes.svelte';
 import type { Collection, Spot } from '$lib/types/collection-types';
 import { spotswapService } from './spotswap-service';
 import LeafletMap from '$lib/ui/LeafletMap.svelte';
@@ -73,4 +78,13 @@ export async function refreshUserState(collections: Collection[]) {
 
 	userComputeByCounty(userCollections.collections);
 	userComputeByCategory(userCollections.collections);
+}
+
+export function clearSpotswapState() {
+	currentCollections.collections = [];
+	userCollections.collections = [];
+	loggedInUser.email = '';
+	loggedInUser.name = '';
+	loggedInUser.token = '';
+	loggedInUser._id = '';
 }
