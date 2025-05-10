@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { spotswapService } from '$lib/services/spotswap-service';
 	import UserCredentials from '$lib/ui/UserCredentials.svelte';
 	import UserDetails from '$lib/ui/UserDetails.svelte';
+	import Message from '$lib/ui/Message.svelte';
 
 	let firstName = '';
 	let lastName = '';
@@ -10,11 +12,23 @@
 	let message = '';
 
 	async function signup() {
-		const success = false;
-		if (success) {
-			goto('/dashboard');
-		} else {
-			message = 'Error Trying to sign up';
+		try {
+			const user = {
+				firstName,
+				lastName,
+				email,
+				password
+			};
+
+			const response = await spotswapService.signup(user);
+			if (response) {
+				goto('/login');
+			} else {
+				message = 'Error signing up';
+			}
+		} catch (error) {
+			console.error('Error during signup:', error);
+			message = 'An error occurred. Please try again.';
 		}
 	}
 </script>
@@ -27,3 +41,6 @@
 		Already have an account? <a href="/login" data-cy="login-redirect">Login Here</a>
 	</p>
 </div>
+{#if message}
+	<Message {message} />
+{/if}
