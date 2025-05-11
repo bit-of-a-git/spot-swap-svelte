@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { loggedInUser } from '$lib/runes.svelte';
+	import { loggedInUser, currentCollection } from '$lib/runes.svelte';
+	import { refreshCollectionState } from '$lib/services/collection-utils';
 	import { spotswapService } from '$lib/services/spotswap-service';
-	import LeafletMap from './LeafletMap.svelte';
 
-	let map: LeafletMap;
-
-	let { collection, showButtons } = $props();
+	let { showButtons } = $props();
 
 	let imagefile = $state(null);
 
@@ -17,8 +15,17 @@
 		imagefile = event.target.files;
 	}
 
-	async function deleteSpot(spotId: string) {
+	async function refresh() {
+		const collectionId = currentCollection.collection._id;
+		const collection = await spotswapService.getCollectionById(collectionId, loggedInUser.token);
+		await refreshCollectionState(collection);
+	}
+
+	async function deleteSpot(spotId: string, spotLat: number, spotLng: number) {
 		const success = await spotswapService.deleteSpot(spotId, loggedInUser.token);
+		if (success) {
+			await refresh();
+		}
 	}
 
 	async function uploadImage(spotId: string) {
@@ -28,17 +35,21 @@
 			formData.append('imagefile', file);
 			const success = await spotswapService.uploadImage(spotId, formData, loggedInUser.token);
 			if (success) {
+				await refresh();
 			}
 		}
 	}
 
 	async function deleteImage(spotId: string) {
 		const success = await spotswapService.deleteImage(spotId, loggedInUser.token);
+		if (success) {
+			await refresh();
+		}
 	}
 </script>
 
-{#if collection.spots.length}
-	{#each collection.spots as spot}
+{#if currentCollection.collection.spots.length}
+	{#each currentCollection.collection.spots as spot}
 		<div class="box">
 			<section class="section">
 				<div class="title">{spot.name}</div>
@@ -94,7 +105,7 @@
 					<a
 						class="button is-danger is-pulled-right"
 						aria-label={`Delete ${spot.name}`}
-						on:click={() => deleteSpot(spot._id)}
+						on:click={() => deleteSpot(spot._id, spot.latitude, spot.longitude)}
 					>
 						<i class="fas fa-trash" aria-hidden="true"></i>
 					</a>

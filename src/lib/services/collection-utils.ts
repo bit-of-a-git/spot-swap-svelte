@@ -3,7 +3,8 @@ import {
 	currentDataSets,
 	loggedInUser,
 	currentCollections,
-	userCollections
+	userCollections,
+	currentCollection
 } from '$lib/runes.svelte';
 import type { Collection, Spot } from '$lib/types/spotswap-types';
 import { spotswapService } from './spotswap-service';
@@ -78,6 +79,10 @@ export async function refreshUserState(collections: Collection[]) {
 
 	userComputeByCounty(userCollections.collections);
 	userComputeByCategory(userCollections.collections);
+}
+
+export async function refreshCollectionState(collection: Collection) {
+	currentCollection.collection = collection;
 }
 
 export function clearSpotswapState() {

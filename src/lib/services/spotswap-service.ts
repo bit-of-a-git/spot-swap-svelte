@@ -149,7 +149,7 @@ export const spotswapService = {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 			const response = await axios.post(this.baseUrl + '/api/spots/' + id + '/image', image);
-			if (response.status == 200) {
+			if (response.status == 201) {
 				await this.refreshCollectionInfo();
 				return true;
 			}
