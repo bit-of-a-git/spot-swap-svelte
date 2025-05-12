@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { userCollections, subTitle } from '$lib/runes.svelte';
+	import { userCollections, subTitle, currentDataSets } from '$lib/runes.svelte';
 	import type { ActionResult } from '@sveltejs/kit';
 	import Card from '$lib/ui/Card.svelte';
 	import CollectionForm from './CollectionForm.svelte';
@@ -8,6 +8,8 @@
 	import { refreshUserState } from '$lib/services/collection-utils';
 	import type { Collection } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
+	import { CollapsibleCard } from 'svelte-collapsible';
+	import Chart from 'svelte-frappe-charts';
 
 	subTitle.text = 'Dashboard';
 
@@ -42,3 +44,21 @@
 		</Card>
 	</div>
 </div>
+
+<CollapsibleCard>
+	<div slot="header" class="card-header-title">Statistics</div>
+	<div slot="body">
+		<div class="columns">
+			<div class="column">
+				<Card title="Collections per County">
+					<Chart data={currentDataSets.userCollectionsByCounty} type="pie" />
+				</Card>
+			</div>
+			<div class="column">
+				<Card title="Spots per Category">
+					<Chart data={currentDataSets.userSpotsByCategory} type="bar" />
+				</Card>
+			</div>
+		</div>
+	</div>
+</CollapsibleCard>
