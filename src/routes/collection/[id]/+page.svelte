@@ -43,16 +43,16 @@
 	});
 </script>
 
-<Card title="Spots to Date">
-	<LeafletMap height={30} bind:this={map} />
-</Card>
-
-{#if currentCollection.collection.spots?.length > 0}
-	<SpotList showButtons="true" />
-{:else}
-	<div class="subtitle">No Spots</div>
-{/if}
-
-<Card title="Add Spot">
-	<SpotForm enhanceFn={handleSpotSuccess} {message} />
-</Card>
+<div class="columns">
+	<div class="column is-half">
+		<Card title="Spots to Date">
+			<LeafletMap height={50} bind:this={map} />
+		</Card>
+	</div>
+	<div class="column is-half">
+		<Card title="Add Spot">
+			<SpotForm enhanceFn={handleSpotSuccess} {message} />
+		</Card>
+	</div>
+</div>
+<SpotList />
