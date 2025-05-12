@@ -32,21 +32,3 @@
 		</div>
 	</div>
 </CollapsibleCard>
-
-<CollapsibleCard>
-	<div slot="header" class="card-header-title">Your Analytics</div>
-	<div slot="body">
-		<div class="columns">
-			<div class="column">
-				<Card title="Collections per County">
-					<Chart data={currentDataSets.userCollectionsByCounty} type="pie" />
-				</Card>
-			</div>
-			<div class="column">
-				<Card title="Spots per Category">
-					<Chart data={currentDataSets.userSpotsByCategory} type="bar" />
-				</Card>
-			</div>
-		</div>
-	</div>
-</CollapsibleCard>
