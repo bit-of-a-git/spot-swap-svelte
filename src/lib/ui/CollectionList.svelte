@@ -34,14 +34,16 @@
 							href={`/collection/${collection._id}`}
 							aria-label={`Open ${collection.title} collection`}
 						>
-							<i class="fas fa-folder-open is-pulled-left"></i>
+							<i class="button is-small is-info fas fa-folder-open is-pulled-left"></i>
 						</a>
-						<a
+						<button
+							type="button"
 							aria-label={`Delete ${collection.title} collection`}
 							on:click={() => deleteCollection(collection._id)}
+							class="button is-small is-danger is-pulled-right"
 						>
-							<i class="fas fa-trash is-pulled-right" aria-hidden="true"></i>
-						</a>
+							<i class="fas fa-trash" aria-hidden="true"></i>
+						</button>
 					</td>
 				</tr>
 			{/each}
