@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { subTitle } from '$lib/runes.svelte.js';
+	import { subTitle, currentCollection } from '$lib/runes.svelte.js';
 	import type { ActionResult } from '@sveltejs/kit';
 	import Card from '$lib/ui/Card.svelte';
 	import SpotForm from './SpotForm.svelte';
@@ -8,27 +8,30 @@
 	import { onMount } from 'svelte';
 	import type { Spot } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
+	import { refreshCollectionState } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
 	let message = $state('');
+	let map: LeafletMap;
 
 	const handleSpotSuccess = () => {
 		return async ({ result }: { result: ActionResult }) => {
 			if (result.type === 'success') {
 				const spot = result.data as Spot;
 				data.collection.spots.push(spot);
+				await refreshCollectionState(data.collection);
 				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 				map.addMarker(spot.latitude, spot.longitude, popup);
+				map.moveTo(spot.latitude, spot.longitude);
 				message = `You added a "${spot.name}" spot to the ${data.collection.title} collection`;
 			}
 		};
 	};
 
-	let map: LeafletMap;
-
 	onMount(async () => {
-		subTitle.text = data.collection.title;
-		const spots = data.collection.spots;
+		await refreshCollectionState(data.collection);
+		subTitle.text = currentCollection.collection.title;
+		const spots = currentCollection.collection.spots;
 		if (spots.length > 0) {
 			spots.forEach((spot: Spot) => {
 				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
@@ -40,16 +43,16 @@
 	});
 </script>
 
-<Card title="Spots to Date">
-	<LeafletMap height={30} bind:this={map} />
-</Card>
-
-{#if data.collection.spots.length > 0}
-	<Card title="Collection">
-		<SpotList collection={data.collection} />
-	</Card>
-{/if}
-
-<Card title="Add Spot">
-	<SpotForm enhanceFn={handleSpotSuccess} {message} />
-</Card>
+<div class="columns">
+	<div class="column is-half">
+		<Card title="Spots to Date">
+			<LeafletMap height={50} bind:this={map} />
+		</Card>
+	</div>
+	<div class="column is-half">
+		<Card title="Add Spot">
+			<SpotForm enhanceFn={handleSpotSuccess} {message} />
+		</Card>
+	</div>
+</div>
+<SpotList />

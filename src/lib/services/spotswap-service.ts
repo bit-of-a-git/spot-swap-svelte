@@ -145,6 +145,36 @@ export const spotswapService = {
 		}
 	},
 
+	async uploadImage(id: string, image: FormData, token: string): Promise<boolean> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.post(this.baseUrl + '/api/spots/' + id + '/image', image);
+			if (response.status == 201) {
+				await this.refreshCollectionInfo();
+				return true;
+			}
+			return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	},
+
+	async deleteImage(id: string, token: string): Promise<boolean> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.delete(this.baseUrl + '/api/spots/' + id + '/image');
+			if (response.status == 204) {
+				await this.refreshCollectionInfo();
+				return true;
+			}
+			return false;
+		} catch (error) {
+			console.log(error);
+			return false;
+		}
+	},
+
 	saveSession(session: Session, email: string) {
 		loggedInUser.email = email;
 		loggedInUser.name = session.name;

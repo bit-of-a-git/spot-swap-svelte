@@ -42,25 +42,13 @@
 
 <form method="POST" action="?/addSpot" use:enhance={enhanceFn}>
 	<div class="columns">
-		<div class="column is-one-third">
+		<div class="column is-half">
 			<div class="field">
 				<label class="label" for="name">Name</label>
 				<input class="input" id="name" name="name" type="text" placeholder="Enter spot name" />
 			</div>
 		</div>
-		<div class="column is-one-third">
-			<div class="field">
-				<label class="label" for="description">Description</label>
-				<input
-					class="input"
-					id="description"
-					name="description"
-					type="text"
-					placeholder="Enter Description"
-				/>
-			</div>
-		</div>
-		<div class="column is-one-third">
+		<div class="column is-half">
 			<div class="field">
 				<label class="label" for="category">Category</label>
 				<div class="select">
@@ -70,6 +58,20 @@
 						{/each}
 					</select>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="columns">
+		<div class="column is-full">
+			<div class="field">
+				<label class="label" for="description">Description</label>
+				<input
+					class="input"
+					id="description"
+					name="description"
+					type="text"
+					placeholder="Enter Description"
+				/>
 			</div>
 		</div>
 	</div>
@@ -110,7 +112,7 @@
 			<div class="field">
 				<p id="geo-status" class="has-text-white-ter"></p>
 				<button onclick={() => geoFindMe()} class="button is-info" type="button"
-					>Use my current location</button
+					>Use current location</button
 				>
 			</div>
 		</div>

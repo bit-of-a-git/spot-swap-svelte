@@ -11,6 +11,7 @@ export const loggedInUser = $state({
 
 export const currentCollections = $state({ collections: [] as Collection[] });
 export const userCollections = $state({ collections: [] as Collection[] });
+export const currentCollection = $state({ collection: {} as Collection });
 
 export const currentDataSets = $state({
 	collectionsByCounty: {
