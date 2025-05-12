@@ -28,6 +28,7 @@ export interface Spot {
 	img?: string;
 	latitude: number;
 	longitude: number;
+	_id?: string;
 }
 
 export interface DataSet {
