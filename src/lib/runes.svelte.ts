@@ -47,3 +47,13 @@ export const currentDataSets = $state({
 		]
 	}
 });
+
+export const stats = $state({
+	collectionCount: 0,
+	spotCount: 0,
+	userCount: 0,
+	topContributor: {
+		name: '',
+		spotCount: 0
+	}
+});

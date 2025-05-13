@@ -4,9 +4,10 @@ import {
 	loggedInUser,
 	currentCollections,
 	userCollections,
-	currentCollection
+	currentCollection,
+	stats
 } from '$lib/runes.svelte';
-import type { Collection, Spot } from '$lib/types/spotswap-types';
+import type { Collection, Spot, User } from '$lib/types/spotswap-types';
 import { spotswapService } from './spotswap-service';
 import LeafletMap from '$lib/ui/LeafletMap.svelte';
 
@@ -50,6 +51,66 @@ export function userComputeByCategory(collectionList: Collection[]) {
 	});
 }
 
+export function getCollectionTotal(collectionList: Collection[]) {
+	const total = collectionList.length;
+	stats.collectionCount = total;
+}
+
+export function getSpotTotal(collectionList: Collection[]) {
+	const total = collectionList.reduce((sum, collection) => {
+		return sum + (collection.spots?.length || 0);
+	}, 0);
+
+	// Update the stats state
+	stats.spotCount = total;
+}
+
+export function getUserTotal(userList: User[]) {
+	const total = userList.length;
+	stats.userCount = total;
+}
+
+export function findUserWithMostSpots(collections: Collection[], users: User[]) {
+	const userSpotCount = new Map<string, number>();
+	collections.forEach((collection) => {
+		const userId = collection.userId;
+		const spotCount = collection.spots?.length || 0;
+
+		// Add to user's total
+		const currentCount = userSpotCount.get(userId) || 0;
+		userSpotCount.set(userId, currentCount + spotCount);
+	});
+
+	// Find user with most spots
+	let maxUserId = '';
+	let maxSpotsCount = 0;
+
+	userSpotCount.forEach((count, userId) => {
+		if (count > maxSpotsCount) {
+			maxSpotsCount = count;
+			maxUserId = userId;
+		}
+	});
+
+	// Find the user details
+	const topUser = users.find((user) => user._id === maxUserId);
+
+	// Update stats
+	if (topUser) {
+		stats.topContributor = {
+			name: `${topUser.firstName} ${topUser.lastName}`,
+			email: topUser.email,
+			spotCount: maxSpotsCount
+		};
+	} else {
+		stats.topContributor = {
+			name: 'No users yet',
+			email: '',
+			spotCount: 0
+		};
+	}
+}
+
 export async function refreshCollectionMap(map: LeafletMap) {
 	if (!loggedInUser.token) spotswapService.restoreSession();
 	const spots = await spotswapService.getSpots(loggedInUser.token);
@@ -61,7 +122,7 @@ export async function refreshCollectionMap(map: LeafletMap) {
 	if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
 }
 
-export async function refreshSpotswapState(collections: Collection[]) {
+export async function refreshSpotswapState(collections: Collection[], users: User[]) {
 	currentCollections.collections = collections;
 
 	currentDataSets.collectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
@@ -69,6 +130,10 @@ export async function refreshSpotswapState(collections: Collection[]) {
 
 	computeByCounty(currentCollections.collections);
 	computeByCategory(currentCollections.collections);
+	getCollectionTotal(currentCollections.collections);
+	getSpotTotal(currentCollections.collections);
+	getUserTotal(users);
+	findUserWithMostSpots(currentCollections.collections, users);
 }
 
 export async function refreshUserState(collections: Collection[]) {
