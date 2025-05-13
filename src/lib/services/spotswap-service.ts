@@ -175,6 +175,17 @@ export const spotswapService = {
 		}
 	},
 
+	async getUsers(token: string): Promise<User[]> {
+		try {
+			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+			const response = await axios.get(this.baseUrl + '/api/users');
+			return response.data as User[];
+		} catch (error) {
+			console.log(error);
+			return [];
+		}
+	},
+
 	saveSession(session: Session, email: string) {
 		loggedInUser.email = email;
 		loggedInUser.name = session.name;
