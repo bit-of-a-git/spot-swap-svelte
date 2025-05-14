@@ -25,7 +25,7 @@
 
 <CollapsibleCard>
 	<div slot="header" class="card-header-title">Overall</div>
-	<div slot="body">
+	<div slot="body" class="p-5">
 		<div class="columns is-multiline">
 			<div class="column is-half">
 				<Card title="Collections By County">
@@ -37,6 +37,14 @@
 					<Chart data={currentDataSets.spotsByCategory} type="bar" />
 				</Card>
 			</div>
+		</div>
+	</div>
+</CollapsibleCard>
+
+<CollapsibleCard>
+	<div slot="header" class="card-header-title">Statistics</div>
+	<div slot="body" class="p-5">
+		<div class="columns is-multiline">
 			<div class="column is-one-third">
 				<Card title="Total Collections">
 					<div class="title">{stats.collectionCount}</div>
