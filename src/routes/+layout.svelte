@@ -2,6 +2,8 @@
 	import Heading from '$lib/ui/Heading.svelte';
 	import Menu from '$lib/ui/Menu.svelte';
 	import { loggedInUser } from '$lib/runes.svelte';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	export let data: any;
 	if (data.session) {
@@ -9,6 +11,7 @@
 		loggedInUser.name = data.session.name;
 		loggedInUser.token = data.session.token;
 		loggedInUser._id = data.session._id;
+		if (browser) goto('/dashboard');
 	} else {
 		loggedInUser.email = '';
 		loggedInUser.name = '';

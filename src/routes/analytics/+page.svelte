@@ -6,11 +6,15 @@
 	import type { PageProps } from '../$types';
 	import { subTitle } from '$lib/runes.svelte';
 	import { CollapsibleCard } from 'svelte-collapsible';
+	import { onMount } from 'svelte';
 
 	import { refreshSpotswapState } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
-	refreshSpotswapState(data.collections, data.users);
+
+	onMount(() => {
+		refreshSpotswapState(data.collections, data.users);
+	});
 
 	const averageSpotsPerCollection = $derived(
 		stats.collectionCount > 0 ? (stats.spotCount / stats.collectionCount).toFixed(2) : 0
@@ -53,7 +57,7 @@
 					<div class="title">{stats.userCount}</div>
 				</Card>
 			</div>
-			<div class="column is-one-third">
+			<div class="column is-two-thirds">
 				<Card title="Top Contributor">
 					<div class="content">
 						<div class="title">

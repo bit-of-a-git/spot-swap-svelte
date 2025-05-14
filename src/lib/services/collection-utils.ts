@@ -99,13 +99,11 @@ export function findUserWithMostSpots(collections: Collection[], users: User[]) 
 	if (topUser) {
 		stats.topContributor = {
 			name: `${topUser.firstName} ${topUser.lastName}`,
-			email: topUser.email,
 			spotCount: maxSpotsCount
 		};
 	} else {
 		stats.topContributor = {
 			name: 'No users yet',
-			email: '',
 			spotCount: 0
 		};
 	}
