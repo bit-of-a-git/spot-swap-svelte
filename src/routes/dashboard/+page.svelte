@@ -46,8 +46,8 @@
 </div>
 
 <CollapsibleCard>
-	<div slot="header" class="card-header-title">Statistics</div>
-	<div slot="body">
+	<div slot="header" class="card-header-title">Your Statistics</div>
+	<div slot="body" class="p-5">
 		<div class="columns">
 			<div class="column">
 				<Card title="Collections per County">

@@ -6,11 +6,15 @@
 	import type { PageProps } from '../$types';
 	import { subTitle } from '$lib/runes.svelte';
 	import { CollapsibleCard } from 'svelte-collapsible';
+	import { onMount } from 'svelte';
 
 	import { refreshSpotswapState } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
-	refreshSpotswapState(data.collections, data.users);
+
+	onMount(() => {
+		refreshSpotswapState(data.collections, data.users);
+	});
 
 	const averageSpotsPerCollection = $derived(
 		stats.collectionCount > 0 ? (stats.spotCount / stats.collectionCount).toFixed(2) : 0
@@ -21,7 +25,7 @@
 
 <CollapsibleCard>
 	<div slot="header" class="card-header-title">Overall</div>
-	<div slot="body">
+	<div slot="body" class="p-5">
 		<div class="columns is-multiline">
 			<div class="column is-half">
 				<Card title="Collections By County">
@@ -33,6 +37,14 @@
 					<Chart data={currentDataSets.spotsByCategory} type="bar" />
 				</Card>
 			</div>
+		</div>
+	</div>
+</CollapsibleCard>
+
+<CollapsibleCard>
+	<div slot="header" class="card-header-title">Statistics</div>
+	<div slot="body" class="p-5">
+		<div class="columns is-multiline">
 			<div class="column is-one-third">
 				<Card title="Total Collections">
 					<div class="title">{stats.collectionCount}</div>
@@ -53,7 +65,7 @@
 					<div class="title">{stats.userCount}</div>
 				</Card>
 			</div>
-			<div class="column is-one-third">
+			<div class="column is-two-thirds">
 				<Card title="Top Contributor">
 					<div class="content">
 						<div class="title">
