@@ -1,43 +1,58 @@
 <script lang="ts">
-	import { currentDataSets, loggedInUser, subTitle } from '$lib/runes.svelte.js';
+	import { subTitle, currentCollection } from '$lib/runes.svelte.js';
+	import type { ActionResult } from '@sveltejs/kit';
 	import Card from '$lib/ui/Card.svelte';
-	import SpotList from '$lib/ui/SpotList.svelte';
 	import SpotForm from './SpotForm.svelte';
+	import SpotList from '$lib/ui/SpotList.svelte';
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
-	import type { Spot, Collection } from '$lib/types/collection-types';
-	import { spotswapService } from '$lib/services/spotswap-service';
 	import { onMount } from 'svelte';
+	import type { Spot } from '$lib/types/spotswap-types';
+	import type { PageProps } from './$types';
+	import { refreshCollectionState } from '$lib/services/collection-utils';
 
-	export let data: Collection;
-
-	subTitle.text = data.title;
+	let { data }: PageProps = $props();
+	let message = $state('');
 	let map: LeafletMap;
 
-	function spotAdded(spot: Spot) {
-		map.addMarker(spot.latitude, spot.longitude, '');
-		map.moveTo(spot.latitude, spot.longitude);
-	}
+	const handleSpotSuccess = () => {
+		return async ({ result }: { result: ActionResult }) => {
+			if (result.type === 'success') {
+				const spot = result.data as Spot;
+				data.collection.spots.push(spot);
+				await refreshCollectionState(data.collection);
+				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
+				map.addMarker(spot.latitude, spot.longitude, popup);
+				map.moveTo(spot.latitude, spot.longitude);
+				message = `You added a "${spot.name}" spot to the ${data.collection.title} collection`;
+			}
+		};
+	};
 
 	onMount(async () => {
-		if (data.spots.length > 0) {
-			data.spots.forEach((spot: Spot) => {
+		await refreshCollectionState(data.collection);
+		subTitle.text = currentCollection.collection.title;
+		const spots = currentCollection.collection.spots;
+		if (spots.length > 0) {
+			spots.forEach((spot: Spot) => {
 				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 				map.addMarker(spot.latitude, spot.longitude, popup);
 			});
-			const lastSpot = data.spots[data.spots.length - 1];
+			const lastSpot = spots[spots.length - 1];
 			if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
 		}
 	});
 </script>
 
-<Card title="Spots to Date">
-	<LeafletMap height={30} bind:this={map} />
-</Card>
-
-<Card title="Collection">
-	<SpotList collection={data} />
-</Card>
-
-<Card title="Add Spot">
-	<SpotForm id={data._id} spotEvent={spotAdded} />
-</Card>
+<div class="columns">
+	<div class="column is-half">
+		<Card title="Spots to Date">
+			<LeafletMap height={50} bind:this={map} />
+		</Card>
+	</div>
+	<div class="column is-half">
+		<Card title="Add Spot">
+			<SpotForm enhanceFn={handleSpotSuccess} {message} />
+		</Card>
+	</div>
+</div>
+<SpotList />

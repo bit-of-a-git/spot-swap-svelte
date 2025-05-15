@@ -16,7 +16,7 @@ export interface Collection {
 	title: string;
 	county: string;
 	userId?: User | string;
-	spots: Spot[];
+	spots?: Spot[];
 	_id?: string;
 }
 
@@ -28,6 +28,7 @@ export interface Spot {
 	img?: string;
 	latitude: number;
 	longitude: number;
+	_id?: string;
 }
 
 export interface DataSet {

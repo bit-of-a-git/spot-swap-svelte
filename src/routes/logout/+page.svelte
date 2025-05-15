@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
-	import { spotswapService } from '$lib/services/spotswap-service';
+	import { clearSpotswapState } from '$lib/services/collection-utils';
 
-	spotswapService.clearSession();
-	goto('/');
+	clearSpotswapState();
+	if (browser) goto('/');
 </script>
