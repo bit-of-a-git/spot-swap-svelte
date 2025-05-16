@@ -8,7 +8,7 @@
 	import { onMount } from 'svelte';
 	import type { Spot } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
-	import { refreshCollectionState } from '$lib/services/collection-utils';
+	import { refreshCollectionState, refreshCollectionMap } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
 	let message = $state('');
@@ -31,15 +31,7 @@
 	onMount(async () => {
 		await refreshCollectionState(data.collection);
 		subTitle.text = currentCollection.collection.title;
-		const spots = currentCollection.collection.spots;
-		if (spots && spots.length > 0) {
-			spots.forEach((spot: Spot) => {
-				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
-				map.addMarker(spot.latitude, spot.longitude, popup);
-			});
-			const lastSpot = spots[spots.length - 1];
-			if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
-		}
+		await refreshCollectionMap(map, currentCollection.collection.spots);
 	});
 </script>
 

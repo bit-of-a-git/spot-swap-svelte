@@ -113,9 +113,7 @@ export function findUserWithMostSpots(collections: Collection[], users: User[]) 
 	}
 }
 
-export async function refreshCollectionMap(map: LeafletMap) {
-	if (!loggedInUser.token) spotswapService.restoreSession();
-	const spots = await spotswapService.getSpots(loggedInUser.token);
+export async function refreshCollectionMap(map: LeafletMap, spots: Spot[]) {
 	spots.forEach((spot: Spot) => {
 		const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 		map.addMarker(spot.latitude, spot.longitude, popup);
