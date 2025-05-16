@@ -7,7 +7,6 @@ export const load: PageServerLoad = async ({ parent, params }) => {
 	const { session } = await parent();
 	if (session && id) {
 		const collection = await spotswapService.getCollectionById(id, session.token);
-		console.log(collection);
 		return {
 			collection
 		};

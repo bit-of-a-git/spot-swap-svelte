@@ -10,7 +10,6 @@ export const actions = {
 		if (email === '' || password === '') {
 			throw redirect(307, '/');
 		} else {
-			console.log(`attempting to log in email: ${email} with password: ${password}`);
 			const session = await spotswapService.login(email, password);
 
 			if (session) {
