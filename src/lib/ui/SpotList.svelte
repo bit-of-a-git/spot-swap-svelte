@@ -16,7 +16,9 @@
 	async function refresh() {
 		const collectionId = currentCollection.collection._id;
 		const collection = await spotswapService.getCollectionById(collectionId, loggedInUser.token);
-		await refreshCollectionState(collection);
+		if (collection) {
+			await refreshCollectionState(collection);
+		}
 	}
 
 	async function deleteSpot(spotId: string) {

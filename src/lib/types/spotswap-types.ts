@@ -15,7 +15,7 @@ export interface User {
 export interface Collection {
 	title: string;
 	county: string;
-	userId?: User | string;
+	userId?: string;
 	spots?: Spot[];
 	_id?: string;
 }
@@ -23,7 +23,7 @@ export interface Collection {
 export interface Spot {
 	name: string;
 	description: string;
-	collectionId?: Collection | string;
+	collectionId?: string;
 	category: string;
 	img?: string;
 	latitude: number;
