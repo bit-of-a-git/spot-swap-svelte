@@ -32,7 +32,7 @@
 		await refreshCollectionState(data.collection);
 		subTitle.text = currentCollection.collection.title;
 		const spots = currentCollection.collection.spots;
-		if (spots.length > 0) {
+		if (spots && spots.length > 0) {
 			spots.forEach((spot: Spot) => {
 				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 				map.addMarker(spot.latitude, spot.longitude, popup);

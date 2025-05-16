@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
-	import type { Spot } from '$lib/types/spot';
+	import type { Spot } from '$lib/types/spotswap-types';
 	import { onMount } from 'svelte';
 
 	let map: LeafletMap;
