@@ -26,3 +26,8 @@
 .actions-column {
 	width: 25%;
 }
+
+button.card-header[class*=' s-'],
+button.card-header[class^='s-'] {
+	box-shadow: none;
+}
