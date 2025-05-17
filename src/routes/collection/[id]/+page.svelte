@@ -36,12 +36,12 @@
 
 <div class="columns">
 	<div class="column is-half">
-		<Card title="Spots to Date">
+		<Card title="Spot Locations" icon="fa-solid fa-map-pin">
 			<LeafletMap height={50} bind:this={map} />
 		</Card>
 	</div>
 	<div class="column is-half">
-		<Card title="Add Spot">
+		<Card title="Add Spot" icon="fa-solid fa-plus">
 			<SpotForm enhanceFn={handleSpotSuccess} {message} />
 		</Card>
 	</div>
