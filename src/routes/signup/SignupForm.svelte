@@ -36,9 +36,11 @@
 <div class="box">
 	<UserDetails bind:firstName bind:lastName />
 	<UserCredentials bind:email bind:password />
-	<button onclick={() => signup()} class="button">Sign Up</button>
+	<div class="has-text-centered">
+		<button onclick={() => signup()} class="button is-success mb-2">Sign Up</button>
+	</div>
 	<p class="has-text-centered">
-		Already have an account? <a href="/login" data-cy="login-redirect">Login Here</a>
+		Already have an account? <a href="/login" data-cy="login-redirect">Log in here</a>
 	</p>
 </div>
 {#if message}
