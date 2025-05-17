@@ -28,12 +28,12 @@
 	<div slot="body" class="p-5">
 		<div class="columns is-multiline">
 			<div class="column is-half">
-				<Card title="Collections By County">
+				<Card title="Collections By County" icon="fa-regular fa-map">
 					<Chart data={currentDataSets.collectionsByCounty} type="pie" />
 				</Card>
 			</div>
 			<div class="column is-half">
-				<Card title="Spots By Category">
+				<Card title="Spots By Category" icon="fa-solid fa-icons">
 					<Chart data={currentDataSets.spotsByCategory} type="bar" />
 				</Card>
 			</div>
@@ -46,27 +46,27 @@
 	<div slot="body" class="p-5">
 		<div class="columns is-multiline">
 			<div class="column is-one-third">
-				<Card title="Total Collections">
+				<Card title="Total Collections" icon="fa-solid fa-route">
 					<div class="title">{stats.collectionCount}</div>
 				</Card>
 			</div>
 			<div class="column is-one-third">
-				<Card title="Total Spots">
+				<Card title="Total Spots" icon="fa-solid fa-map-pin">
 					<div class="title">{stats.spotCount}</div>
 				</Card>
 			</div>
 			<div class="column is-one-third">
-				<Card title="Average Spots Per Collection">
+				<Card title="Average Spots Per Collection" icon="fa-solid fa-gauge">
 					<div class="title">{averageSpotsPerCollection}</div>
 				</Card>
 			</div>
 			<div class="column is-one-third">
-				<Card title="Total Users">
+				<Card title="Total Users" icon="fa-solid fa-users">
 					<div class="title">{stats.userCount}</div>
 				</Card>
 			</div>
 			<div class="column is-two-thirds">
-				<Card title="Top Contributor">
+				<Card title="Top Contributor" icon="fa-solid fa-award">
 					<div class="content">
 						<div class="title">
 							{stats.topContributor.name} - {stats.topContributor.spotCount} spots
