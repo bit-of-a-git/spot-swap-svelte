@@ -27,6 +27,10 @@
 	width: 25%;
 }
 
+.county-column {
+	width: 30%;
+}
+
 button.card-header[class*=' s-'],
 button.card-header[class^='s-'] {
 	box-shadow: none;

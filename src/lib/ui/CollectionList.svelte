@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th>Title</th>
-				<th>County</th>
+				<th class="county-column">County</th>
 				<th class="actions-column">Actions</th>
 			</tr>
 		</thead>
