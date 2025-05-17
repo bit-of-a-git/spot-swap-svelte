@@ -31,3 +31,9 @@ button.card-header[class*=' s-'],
 button.card-header[class^='s-'] {
 	box-shadow: none;
 }
+
+.graph-svg-tip > .title,
+.graph-svg-tip > .title > strong {
+	color: #ffffff;
+	font-size: small;
+}
