@@ -62,7 +62,7 @@
 				<div class="title">{spot.name}</div>
 				<div class="subtitle is-6 has-text-warning">{spot.category}</div>
 				<div class="columns">
-					<div class="column">{spot.description}</div>
+					<div class="column"><p>{spot.description}</p></div>
 				</div>
 				{#if spot.img}
 					<div class="columns is-centered">
