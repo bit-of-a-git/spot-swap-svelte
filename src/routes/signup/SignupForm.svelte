@@ -21,10 +21,10 @@
 			};
 
 			const response = await spotswapService.signup(user);
-			if (response) {
+			if (response.success) {
 				goto('/login');
 			} else {
-				message = 'Error signing up';
+				message = response.message || 'Error signing up';
 			}
 		} catch (error) {
 			console.error('Error during signup:', error);
@@ -42,7 +42,9 @@
 	<p class="has-text-centered">
 		Already have an account? <a href="/login" data-cy="login-redirect">Log in here</a>
 	</p>
+	<div class="mt-2">
+		{#if message}
+			<Message {message} />
+		{/if}
+	</div>
 </div>
-{#if message}
-	<Message {message} />
-{/if}
