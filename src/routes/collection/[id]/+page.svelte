@@ -8,11 +8,15 @@
 	import { onMount } from 'svelte';
 	import type { Spot } from '$lib/types/spotswap-types';
 	import type { PageProps } from './$types';
-	import { refreshCollectionState } from '$lib/services/collection-utils';
+	import { refreshCollectionState, refreshCollectionMap } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
 	let message = $state('');
 	let map: LeafletMap;
+
+	$effect(() => {
+		refreshCollectionMap(map, currentCollection.collection.spots);
+	});
 
 	const handleSpotSuccess = () => {
 		return async ({ result }: { result: ActionResult }) => {
@@ -20,10 +24,6 @@
 				const spot = result.data as Spot;
 				data.collection.spots.push(spot);
 				await refreshCollectionState(data.collection);
-				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
-				map.addMarker(spot.latitude, spot.longitude, popup);
-				map.moveTo(spot.latitude, spot.longitude);
-				message = `You added a "${spot.name}" spot to the ${data.collection.title} collection`;
 			}
 		};
 	};
@@ -31,26 +31,17 @@
 	onMount(async () => {
 		await refreshCollectionState(data.collection);
 		subTitle.text = currentCollection.collection.title;
-		const spots = currentCollection.collection.spots;
-		if (spots && spots.length > 0) {
-			spots.forEach((spot: Spot) => {
-				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
-				map.addMarker(spot.latitude, spot.longitude, popup);
-			});
-			const lastSpot = spots[spots.length - 1];
-			if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
-		}
 	});
 </script>
 
 <div class="columns">
 	<div class="column is-half">
-		<Card title="Spots to Date">
+		<Card title="Spot Locations" icon="fa-solid fa-map-pin">
 			<LeafletMap height={50} bind:this={map} />
 		</Card>
 	</div>
 	<div class="column is-half">
-		<Card title="Add Spot">
+		<Card title="Add Spot" icon="fa-solid fa-plus">
 			<SpotForm enhanceFn={handleSpotSuccess} {message} />
 		</Card>
 	</div>

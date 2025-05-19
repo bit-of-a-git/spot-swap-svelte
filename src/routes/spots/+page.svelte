@@ -15,7 +15,9 @@
 </script>
 
 {#each currentCollections.collections as collection, index}
-	<Card title={`${collection.title}`}>
-		<AllSpots {collection} collectionIndex={index} />
-	</Card>
+	{#if collection.spots?.length}
+		<Card title={`${collection.title}`}>
+			<AllSpots {collection} collectionIndex={index} />
+		</Card>
+	{/if}
 {/each}

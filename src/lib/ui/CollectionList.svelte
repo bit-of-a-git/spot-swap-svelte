@@ -8,16 +8,14 @@
 </script>
 
 {#if userCollections.collections.length === 0}
-	<div class="box">
-		<p class="has-text-centered">No collections found.</p>
-	</div>
+	<p class="has-text-centered">No collections found.</p>
 {:else}
 	<table class="table is-fullwidth">
 		<thead>
 			<tr>
 				<th>Title</th>
-				<th>County</th>
-				<th>Actions</th>
+				<th class="county-column">County</th>
+				<th class="actions-column">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
