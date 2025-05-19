@@ -18,7 +18,6 @@ const authHandle: Handle = async ({ event, resolve }) => {
 	// Redirect to the root if the user is not authenticated
 	// and check if the path is in the protected path list
 	if (protectedPaths.some((protectedPath) => pathName.startsWith(protectedPath)) && !auth_token) {
-		console.log('For some reason, it is doing this');
 		redirect(301, '/login');
 	}
 
