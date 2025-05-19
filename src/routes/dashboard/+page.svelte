@@ -34,12 +34,12 @@
 
 <div class="columns">
 	<div class="column">
-		<Card title="Your Collections">
+		<Card title="Your Collections" icon="fa-solid fa-route">
 			<CollectionList />
 		</Card>
 	</div>
 	<div class="column">
-		<Card title="Add a Collection">
+		<Card title="Add a Collection" icon="fa-solid fa-plus">
 			<CollectionForm enhanceFn={handleCollectionSuccess} {message} />
 		</Card>
 	</div>
@@ -50,12 +50,12 @@
 	<div slot="body" class="p-5">
 		<div class="columns">
 			<div class="column">
-				<Card title="Collections per County">
+				<Card title="Collections per County" icon="fa-regular fa-map">
 					<Chart data={currentDataSets.userCollectionsByCounty} type="pie" />
 				</Card>
 			</div>
 			<div class="column">
-				<Card title="Spots per Category">
+				<Card title="Spots per Category" icon="fa-solid fa-icons">
 					<Chart data={currentDataSets.userSpotsByCategory} type="bar" />
 				</Card>
 			</div>

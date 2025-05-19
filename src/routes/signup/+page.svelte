@@ -7,14 +7,18 @@
 	<div class="hero-body">
 		<div class="container">
 			<div class="columns is-vcentered">
-				<div class="column is-5">
-					<h1 class="title has-text-centered">Sign up to SpotSwap</h1>
+				<div class="column is-half">
+					<div class="title has-text-centered">Sign up to SpotSwap</div>
 					<SignupForm />
 				</div>
-				<div class="column is-5 is-offset-1">
-					<figure class="image">
-						<img class="object-fit" src="/globe.jpg" alt="globe" />
-					</figure>
+				<div class="column is-half">
+					<div class="columns is-centered">
+						<div class="column is-two-thirds">
+							<figure class="image">
+								<img class="object-fit" src="/balloons.jpg" alt="globe" />
+							</figure>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

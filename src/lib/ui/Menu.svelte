@@ -5,10 +5,9 @@
 <nav class="navbar is-full-width">
 	<div class="container">
 		<div class="navbar-brand">
-			<a class="navbar-item" href="/dashboard">
-				<span class="icon"> <i class="fas fa-map-marker-alt"></i></span><span class="icon mr-1">
-					<i class="far fa-money-bill-alt"></i></span
-				><span><strong>SpotSwap</strong> </span>
+			<a class="navbar-item title p-3" href="/dashboard">
+				<i class="fa-solid fa-earth-europe spotswap-icon" aria-hidden="true"></i>
+				<div class="title ml-4">SpotSwap</div>
 			</a>
 		</div>
 		<div id="navbarMenu" class="navbar-menu">

@@ -3,11 +3,10 @@
 	import { onMount } from 'svelte';
 	import type { Control, Map as LeafletMap } from 'leaflet';
 
-	let { height = 80, id = 'home-map-id' } = $props();
+	let { height = 80, id = 'home-map-id', activeLayer = 'Terrain' } = $props();
 	let location = { lat: 53.2734, lng: -7.7783203 };
 	let zoom = 8;
-	let minZoom = 7;
-	let activeLayer = 'Terrain';
+	let minZoom = 5;
 
 	let imap: LeafletMap;
 	let control: Control.Layers;

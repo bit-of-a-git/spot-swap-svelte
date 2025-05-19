@@ -17,13 +17,25 @@ import { categoryList, countyList } from '$lib/constants';
 export const spotswapService = {
 	baseUrl: import.meta.env.VITE_BACKEND_API_URL,
 
-	async signup(user: User): Promise<boolean> {
+	async signup(user: User): Promise<any> {
 		try {
 			const response = await axios.post(`${this.baseUrl}/api/users`, user);
-			return response.status === 201;
+			if (response.status === 201) {
+				return {
+					success: true
+				};
+			}
+			// If the response was not 201, returns success as false
+			return {
+				success: false,
+				message: response.data.message || 'Unexpected response from server'
+			};
 		} catch (error) {
 			console.log(error);
-			return false;
+			return {
+				success: false,
+				message: error.response?.data?.message || 'An error occurred during signup'
+			};
 		}
 	},
 

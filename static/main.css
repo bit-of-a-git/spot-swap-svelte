@@ -9,3 +9,35 @@
 	top: 10px;
 	right: 10px;
 }
+
+.spotswap-icon {
+	font-size: 3rem;
+	color: Dodgerblue;
+}
+
+.table {
+	table-layout: fixed;
+}
+
+.shadowless {
+	box-shadow: none;
+}
+
+.actions-column {
+	width: 25%;
+}
+
+.county-column {
+	width: 30%;
+}
+
+button.card-header[class*=' s-'],
+button.card-header[class^='s-'] {
+	box-shadow: none;
+}
+
+.graph-svg-tip > .title,
+.graph-svg-tip > .title > strong {
+	color: #ffffff;
+	font-size: small;
+}

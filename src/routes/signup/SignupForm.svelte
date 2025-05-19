@@ -21,10 +21,10 @@
 			};
 
 			const response = await spotswapService.signup(user);
-			if (response) {
+			if (response.success) {
 				goto('/login');
 			} else {
-				message = 'Error signing up';
+				message = response.message || 'Error signing up';
 			}
 		} catch (error) {
 			console.error('Error during signup:', error);
@@ -36,11 +36,15 @@
 <div class="box">
 	<UserDetails bind:firstName bind:lastName />
 	<UserCredentials bind:email bind:password />
-	<button onclick={() => signup()} class="button">Sign Up</button>
+	<div class="has-text-centered">
+		<button onclick={() => signup()} class="button is-success mb-2">Sign Up</button>
+	</div>
 	<p class="has-text-centered">
-		Already have an account? <a href="/login" data-cy="login-redirect">Login Here</a>
+		Already have an account? <a href="/login" data-cy="login-redirect">Log in here</a>
 	</p>
+	<div class="mt-2">
+		{#if message}
+			<Message {message} />
+		{/if}
+	</div>
 </div>
-{#if message}
-	<Message {message} />
-{/if}

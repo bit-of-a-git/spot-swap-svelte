@@ -14,16 +14,16 @@
 	let message = $state('');
 	let map: LeafletMap;
 
+	$effect(() => {
+		refreshCollectionMap(map, currentCollection.collection.spots);
+	});
+
 	const handleSpotSuccess = () => {
 		return async ({ result }: { result: ActionResult }) => {
 			if (result.type === 'success') {
 				const spot = result.data as Spot;
 				data.collection.spots.push(spot);
 				await refreshCollectionState(data.collection);
-				const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
-				map.addMarker(spot.latitude, spot.longitude, popup);
-				map.moveTo(spot.latitude, spot.longitude);
-				message = `You added a "${spot.name}" spot to the ${data.collection.title} collection`;
 			}
 		};
 	};
@@ -31,18 +31,17 @@
 	onMount(async () => {
 		await refreshCollectionState(data.collection);
 		subTitle.text = currentCollection.collection.title;
-		await refreshCollectionMap(map, currentCollection.collection.spots);
 	});
 </script>
 
 <div class="columns">
 	<div class="column is-half">
-		<Card title="Spots to Date">
+		<Card title="Spot Locations" icon="fa-solid fa-map-pin">
 			<LeafletMap height={50} bind:this={map} />
 		</Card>
 	</div>
 	<div class="column is-half">
-		<Card title="Add Spot">
+		<Card title="Add Spot" icon="fa-solid fa-plus">
 			<SpotForm enhanceFn={handleSpotSuccess} {message} />
 		</Card>
 	</div>
