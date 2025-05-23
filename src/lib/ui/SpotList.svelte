@@ -42,8 +42,8 @@
 		}
 	}
 
-	async function deleteImage(spotId: string) {
-		const success = await spotswapService.deleteImage(spotId, loggedInUser.token);
+	async function deleteImage(spotId: string, index: number) {
+		const success = await spotswapService.deleteImage(spotId, index, loggedInUser.token);
 		if (success) {
 			await refresh();
 		}
