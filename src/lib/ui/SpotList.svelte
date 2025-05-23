@@ -16,8 +16,10 @@
 	}
 
 	async function refresh() {
-		const collectionId = currentCollection.collection._id;
-		const collection = await spotswapService.getCollectionById(collectionId, loggedInUser.token);
+		const collection = await spotswapService.getCollectionById(
+			currentCollection.collection._id,
+			loggedInUser.token
+		);
 		if (collection) {
 			await refreshCollectionState(collection);
 		}
