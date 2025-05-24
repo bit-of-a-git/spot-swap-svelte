@@ -172,10 +172,12 @@ export const spotswapService = {
 		}
 	},
 
-	async deleteImage(id: string, token: string): Promise<boolean> {
+	async deleteImage(id: string, index: number, token: string): Promise<boolean> {
 		try {
 			axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-			const response = await axios.delete(this.baseUrl + '/api/spots/' + id + '/image');
+			const response = await axios.delete(`${this.baseUrl}/api/spots/${id}/image`, {
+				data: { index } // send index instead of URL
+			});
 			if (response.status == 204) {
 				await this.refreshCollectionInfo();
 				return true;

@@ -2,6 +2,8 @@
 	import { loggedInUser, currentCollection } from '$lib/runes.svelte';
 	import { refreshCollectionState } from '$lib/services/collection-utils';
 	import { spotswapService } from '$lib/services/spotswap-service';
+	import Carousel from 'svelte-carousel';
+	import { browser } from '$app/environment';
 
 	let imagefile = $state(null);
 
@@ -14,8 +16,10 @@
 	}
 
 	async function refresh() {
-		const collectionId = currentCollection.collection._id;
-		const collection = await spotswapService.getCollectionById(collectionId, loggedInUser.token);
+		const collection = await spotswapService.getCollectionById(
+			currentCollection.collection._id,
+			loggedInUser.token
+		);
 		if (collection) {
 			await refreshCollectionState(collection);
 		}
@@ -40,8 +44,8 @@
 		}
 	}
 
-	async function deleteImage(spotId: string) {
-		const success = await spotswapService.deleteImage(spotId, loggedInUser.token);
+	async function deleteImage(spotId: string, index: number) {
+		const success = await spotswapService.deleteImage(spotId, index, loggedInUser.token);
 		if (success) {
 			await refresh();
 		}
@@ -64,47 +68,52 @@
 				<div class="columns">
 					<div class="column"><p>{spot.description}</p></div>
 				</div>
-				{#if spot.img}
-					<div class="columns is-centered">
+				{#if spot.images?.length}
+					<div class="columns is-multiline is-centered">
 						<div class="column is-half">
-							<div class="card-image">
-								<figure class="image is-256x256">
-									<img src={spot.img} alt="Picture of {spot.name}" />
-									<button
-										class="button is-danger image-deletion-button"
-										aria-label={`Delete ${spot.name} image`}
-										onclick={() => deleteImage(spot._id)}
-									>
-										<i class="fas fa-trash" aria-hidden="true"></i>
-									</button>
-								</figure>
-							</div>
+							{#if browser}
+								{#key spot.images}
+									<Carousel>
+										{#each spot.images as img, index (img)}
+											<div class="card-image">
+												<img src={img} alt="Image of {spot.name}" />
+												<button
+													class="button is-danger image-deletion-button"
+													aria-label={`Delete image of ${spot.name}`}
+													onclick={() => deleteImage(spot._id, index)}
+												>
+													<i class="fas fa-trash" aria-hidden="true"></i>
+												</button>
+											</div>
+										{/each}
+									</Carousel>
+								{/key}
+							{/if}
 						</div>
 					</div>
-				{:else}
-					<div class="subtitle">Upload Image</div>
-					<div id="file-select" class="file has-name is-fullwidth">
-						<label class="file-label">
-							<input
-								class="file-input"
-								name="imagefile"
-								type="file"
-								accept="image/png, image/jpeg"
-								onchange={handleFileChange}
-							/>
-							<span class="file-cta">
-								<span class="file-icon">
-									<i class="fas fa-upload"></i>
-								</span>
-								<span class="file-label">Choose a file…</span>
-							</span>
-							<span class="file-name"> {imageDisplayName}</span>
-						</label>
-						<button type="submit" class="button is-link" onclick={() => uploadImage(spot._id)}>
-							Upload
-						</button>
-					</div>
 				{/if}
+				<div class="subtitle">Upload Image</div>
+				<div id="file-select" class="file has-name is-fullwidth">
+					<label class="file-label">
+						<input
+							class="file-input"
+							name="imagefile"
+							type="file"
+							accept="image/png, image/jpeg"
+							onchange={handleFileChange}
+						/>
+						<span class="file-cta">
+							<span class="file-icon">
+								<i class="fas fa-upload"></i>
+							</span>
+							<span class="file-label">Choose a file…</span>
+						</span>
+						<span class="file-name"> {imageDisplayName}</span>
+					</label>
+					<button type="submit" class="button is-link" onclick={() => uploadImage(spot._id)}>
+						Upload
+					</button>
+				</div>
 			</section>
 		</div>
 	{/each}

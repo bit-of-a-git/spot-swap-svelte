@@ -10,7 +10,7 @@
 	let { data }: PageProps = $props();
 
 	onMount(async () => {
-		refreshSpotswapState(data.collections, data.users);
+		refreshSpotswapState(data.collections);
 	});
 </script>
 
