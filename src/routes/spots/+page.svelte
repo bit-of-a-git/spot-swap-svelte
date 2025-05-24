@@ -16,7 +16,7 @@
 
 {#each currentCollections.collections as collection, index}
 	{#if collection.spots?.length}
-		<Card title={`${collection.title}`}>
+		<Card title={`${collection.title}`} icon="fa-solid fa-route">
 			<AllSpots {collection} collectionIndex={index} />
 		</Card>
 	{/if}
