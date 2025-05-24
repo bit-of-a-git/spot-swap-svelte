@@ -117,12 +117,10 @@
 			</div>
 		</div>
 		<div class="column is-one-third align-bottom">
-			<div class="field">
-				<p id="geo-status" class="has-text-white-ter"></p>
-				<button onclick={() => geoFindMe()} class="button is-info" type="button"
-					>Use current location</button
-				>
-			</div>
+			<label class="label has-text-info" id="geo-status"></label>
+			<button onclick={() => geoFindMe()} class="button is-info" type="button"
+				>Use current location</button
+			>
 		</div>
 	</div>
 	<div class="field">
