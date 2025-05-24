@@ -42,7 +42,7 @@ export const currentDataSets = $state({
 		labels: categoryList,
 		datasets: [
 			{
-				values: Array(countyList.length).fill(0)
+				values: Array(categoryList.length).fill(0)
 			}
 		]
 	}
