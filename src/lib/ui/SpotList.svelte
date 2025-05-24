@@ -73,7 +73,7 @@
 						<div class="column is-half">
 							{#if browser}
 								{#key spot.images}
-									<Carousel bind:this={carousel}>
+									<Carousel>
 										{#each spot.images as img, index (img)}
 											<div class="card-image">
 												<img src={img} alt="Image of {spot.name}" />
