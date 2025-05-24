@@ -54,6 +54,7 @@
 				<label class="label" for="category">Category</label>
 				<div class="select">
 					<select name="category" required>
+						<option value="" disabled selected>Select a category</option>
 						{#each categoryList as category}
 							<option value={category}>{category}</option>
 						{/each}
