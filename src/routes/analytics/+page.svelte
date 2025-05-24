@@ -72,7 +72,6 @@
 						<div class="title">
 							{stats.topContributor.name} - {stats.topContributor.spotCount} spots
 						</div>
-						<div class="subtitle"></div>
 					</div>
 				</Card>
 			</div>
