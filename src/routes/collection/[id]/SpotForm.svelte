@@ -30,6 +30,15 @@
 			navigator.geolocation.getCurrentPosition(success, error);
 		}
 	}
+
+	function updateInputs(lat: string, lng: string) {
+		const latInput = document.querySelector<HTMLInputElement>('#latitude');
+		const lngInput = document.querySelector<HTMLInputElement>('#longitude');
+		if (latInput && lngInput) {
+			latInput.value = lat;
+			lngInput.value = lng;
+		}
+	}
 </script>
 
 <form method="POST" action="?/addSpot" use:enhance={enhanceFn}>

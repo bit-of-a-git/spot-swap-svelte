@@ -2,6 +2,8 @@
 	import LeafletMap from '$lib/ui/LeafletMap.svelte';
 	import { onMount } from 'svelte';
 	import { refreshCollectionMap } from '$lib/services/collection-utils';
+	import Carousel from 'svelte-carousel';
+	import { browser } from '$app/environment';
 
 	let map: LeafletMap;
 
@@ -23,14 +25,20 @@
 				<p>{spot.description}</p>
 			</div>
 		</div>
-		{#if spot.img}
-			<div class="columns is-centered">
+		{#if spot.images?.length}
+			<div class="columns is-multiline is-centered">
 				<div class="column is-half">
-					<div class="card-image">
-						<figure class="image is-256x256">
-							<img src={spot.img} alt="Picture of {spot.name}" />
-						</figure>
-					</div>
+					{#if browser}
+						{#key spot.images}
+							<Carousel>
+								{#each spot.images as img}
+									<div class="card-image">
+										<img src={img} alt="Image of {spot.name}" />
+									</div>
+								{/each}
+							</Carousel>
+						{/key}
+					{/if}
 				</div>
 			</div>
 		{/if}
