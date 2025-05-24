@@ -8,7 +8,6 @@ import {
 	stats
 } from '$lib/runes.svelte';
 import type { Collection, Spot, User } from '$lib/types/spotswap-types';
-import { spotswapService } from './spotswap-service';
 import LeafletMap from '$lib/ui/LeafletMap.svelte';
 
 export function computeByCounty(collectionList: Collection[]) {
@@ -122,9 +121,11 @@ export async function refreshCollectionMap(map: LeafletMap, spots: Spot[]) {
 	if (lastSpot) map.moveTo(lastSpot.latitude, lastSpot.longitude);
 }
 
-export async function refreshSpotswapState(collections: Collection[], users: User[]) {
+export async function refreshSpotswapState(collections: Collection[]) {
 	currentCollections.collections = collections;
+}
 
+export async function refreshSpotswapAnalytics(users: User[]) {
 	currentDataSets.collectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
 	currentDataSets.spotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
 
