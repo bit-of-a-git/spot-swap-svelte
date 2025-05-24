@@ -4,21 +4,20 @@
 
 	let { enhanceFn, message = $bindable('') } = $props();
 
-	let latitude = $state(0);
-	let longitude = $state(0);
-
 	// Geolocation function
 	// https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
 	function geoFindMe() {
 		const status = document.querySelector('#geo-status');
 
 		function success(position: GeolocationPosition) {
-			latitude = parseFloat(position.coords.latitude.toFixed(6)); // Update latitude directly
-			longitude = parseFloat(position.coords.longitude.toFixed(6)); // Update longitude directly
+			const latitude = position.coords.latitude.toFixed(6); // Update latitude directly
+			const longitude = position.coords.longitude.toFixed(6); // Update longitude directly
 
 			if (status) {
 				status.textContent = '';
 			}
+
+			updateInputs(latitude, longitude);
 		}
 
 		function error() {
@@ -36,6 +35,15 @@
 				status.textContent = 'Locating…';
 			}
 			navigator.geolocation.getCurrentPosition(success, error);
+		}
+	}
+
+	function updateInputs(lat: string, lng: string) {
+		const latInput = document.querySelector<HTMLInputElement>('#latitude');
+		const lngInput = document.querySelector<HTMLInputElement>('#longitude');
+		if (latInput && lngInput) {
+			latInput.value = lat;
+			lngInput.value = lng;
 		}
 	}
 </script>
