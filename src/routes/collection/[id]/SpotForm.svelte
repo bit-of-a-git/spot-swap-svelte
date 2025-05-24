@@ -1,39 +1,32 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { categoryList } from '$lib/constants';
+	import Message from '$lib/ui/Message.svelte';
 
 	let { enhanceFn, message = $bindable('') } = $props();
+
+	let latitude = $state();
+	let longitude = $state();
+
+	let geoStatusMessage = $state('');
 
 	// Geolocation function
 	// https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
 	function geoFindMe() {
-		const status = document.querySelector('#geo-status');
-
 		function success(position: GeolocationPosition) {
-			const latitude = position.coords.latitude.toFixed(6); // Update latitude directly
-			const longitude = position.coords.longitude.toFixed(6); // Update longitude directly
-
-			if (status) {
-				status.textContent = '';
-			}
-
-			updateInputs(latitude, longitude);
+			latitude = parseFloat(position.coords.latitude.toFixed(6)); // Update latitude directly
+			longitude = parseFloat(position.coords.longitude.toFixed(6)); // Update longitude directly
+			geoStatusMessage = ''; // Update reactive variable
 		}
 
 		function error() {
-			if (status) {
-				status.textContent = 'Unable to retrieve your location';
-			}
+			geoStatusMessage = 'Unable to retrieve your location';
 		}
 
 		if (!navigator.geolocation) {
-			if (status) {
-				status.textContent = 'Geolocation is not supported by your browser';
-			}
+			geoStatusMessage = 'Geolocation is not supported by your browser';
 		} else {
-			if (status) {
-				status.textContent = 'Locating…';
-			}
+			geoStatusMessage = 'Locating…';
 			navigator.geolocation.getCurrentPosition(success, error);
 		}
 	}
@@ -96,6 +89,7 @@
 					step="0.000001"
 					min="-90"
 					max="90"
+					bind:value={latitude}
 					required
 				/>
 			</div>
@@ -112,12 +106,13 @@
 					step="0.000001"
 					min="-180"
 					max="180"
+					bind:value={longitude}
 					required
 				/>
 			</div>
 		</div>
 		<div class="column is-one-third align-bottom">
-			<label class="label has-text-info" id="geo-status"></label>
+			<label class="label has-text-info">{geoStatusMessage}</label>
 			<button onclick={() => geoFindMe()} class="button is-info" type="button"
 				>Use current location</button
 			>
@@ -130,9 +125,7 @@
 	</div>
 </form>
 {#if message}
-	<div class="box mt-4">
-		<div class="content has-text-centered">
-			{message}
-		</div>
+	<div class="mt-3">
+		<Message {message} />
 	</div>
 {/if}
