@@ -41,7 +41,7 @@
 		</div>
 	</div>
 </CollapsibleCard>
-
+<br />
 <CollapsibleCard>
 	<div slot="header" class="card-header-title">Statistics</div>
 	<div slot="body" class="p-5">
