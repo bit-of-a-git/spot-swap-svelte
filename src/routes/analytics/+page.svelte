@@ -8,12 +8,13 @@
 	import { CollapsibleCard } from 'svelte-collapsible';
 	import { onMount } from 'svelte';
 
-	import { refreshSpotswapState } from '$lib/services/collection-utils';
+	import { refreshSpotswapState, refreshSpotswapAnalytics } from '$lib/services/collection-utils';
 
 	let { data }: PageProps = $props();
 
 	onMount(() => {
-		refreshSpotswapState(data.collections, data.users);
+		refreshSpotswapState(data.collections);
+		refreshSpotswapAnalytics(data.users);
 	});
 
 	const averageSpotsPerCollection = $derived(
