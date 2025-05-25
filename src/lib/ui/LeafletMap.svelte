@@ -3,10 +3,15 @@
   import { onMount } from 'svelte';
   import type { Control, Map as LeafletMap } from 'leaflet';
 
-  let { height = 80, id = 'home-map-id', activeLayer = 'Terrain' } = $props();
+  // Additionally takes id, activeLayer, zoom, and minZoom as props, to allow further customisation
+  let {
+    height = 80,
+    id = 'home-map-id',
+    activeLayer = 'Terrain',
+    zoom = 8,
+    minZoom = 5,
+  } = $props();
   let location = { lat: 53.2734, lng: -7.7783203 };
-  let zoom = 8;
-  let minZoom = 5;
 
   let imap: LeafletMap;
   let control: Control.Layers;
@@ -56,6 +61,8 @@
     imap.flyTo({ lat: lat, lng: lng });
   }
 
+  // Loops through each layer of the map and removes it if it is a marker
+  // Used when deleting markers from the map
   export async function clearMarkers() {
     const leaflet = await import('leaflet');
     L = leaflet.default;

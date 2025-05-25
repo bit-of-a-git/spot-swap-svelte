@@ -21,6 +21,7 @@
       };
 
       const response = await spotswapService.signup(user);
+      // Checks if the signup was successful. If not, passes in the error message.
       if (response.success) {
         goto('/login');
       } else {

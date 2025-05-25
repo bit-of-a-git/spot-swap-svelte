@@ -14,6 +14,7 @@
   let message = $state('');
   let map: LeafletMap;
 
+  // Runs when the currentCollection state changes, and updates the map.
   $effect(() => {
     refreshCollectionMap(map, currentCollection.collection.spots);
   });

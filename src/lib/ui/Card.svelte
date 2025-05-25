@@ -1,4 +1,5 @@
 <script lang="ts">
+  // Additionally takes an icon prop to allow further customisation
   let { title = '', children, icon = 'fas fa-coins' } = $props();
 </script>
 
