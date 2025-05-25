@@ -1,23 +1,28 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>SpotSwap</title>
+    <meta name="description" content="SpotSwap - discover and share hidden gems across Ireland!" />
+    <meta
+      name="keywords"
+      content="swap, spots, historical, locations, restaurants, bars, hikes, curiosities, SpotSwap"
+    />
+    <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
+    <script src="https://kit.fontawesome.com/7f6f532ecf.js" crossorigin="anonymous"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="/leaflet.css" />
+    <link rel="stylesheet" href="/main.css" />
+    %sveltekit.head%
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>SpotSwap</title>
-  <meta name="description" content="SpotSwap - discover and share hidden gems across Ireland!">
-  <meta name="keywords" content="swap, spots, historical, locations, restaurants, bars, hikes, curiosities, SpotSwap">
-  <link rel="icon" href="%sveltekit.assets%/favicon.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css" />
-  <script src="https://kit.fontawesome.com/7f6f532ecf.js" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="/leaflet.css">
-  <link rel="stylesheet" href="/main.css">
-  %sveltekit.head%
-</head>
-
-<body data-sveltekit-preload-data="hover">
-  <div style="display: contents">%sveltekit.body%</div>
-</body>
-
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
 </html>
