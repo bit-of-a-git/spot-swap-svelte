@@ -1,3 +1,3 @@
 export const load = async ({ cookies }) => {
-	cookies.delete('spotswap-user', { path: '/' });
+  cookies.delete('spotswap-user', { path: '/' });
 };
