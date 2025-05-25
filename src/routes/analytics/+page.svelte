@@ -17,6 +17,8 @@
     refreshSpotswapAnalytics(data.users);
   });
 
+  // Uses derived to calculate the average spots per collection, to two decimal places.
+  // If there are no collections, it defaults to 0.
   const averageSpotsPerCollection = $derived(
     stats.collectionCount > 0 ? (stats.spotCount / stats.collectionCount).toFixed(2) : 0
   );

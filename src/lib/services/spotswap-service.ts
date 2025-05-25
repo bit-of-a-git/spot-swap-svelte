@@ -25,7 +25,7 @@ export const spotswapService = {
           success: true,
         };
       }
-      // If the response was not 201, returns success as false
+      // If the response was not 201, returns success as false. Also returns the message from the response if available.
       return {
         success: false,
         message: response.data.message || 'Unexpected response from server',
@@ -230,6 +230,8 @@ export const spotswapService = {
     localStorage.removeItem('collection');
   },
 
+  // Refreshes the collection information and updates the datasets.
+  // This method is called after any operation that modifies collections or spots.
   async refreshCollectionInfo() {
     if (loggedInUser.token) {
       userCollections.collections = await this.getUserCollections(
