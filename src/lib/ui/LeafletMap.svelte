@@ -55,6 +55,16 @@
 		L = leaflet.default;
 		imap.flyTo({ lat: lat, lng: lng });
 	}
+
+	export async function clearMarkers() {
+		const leaflet = await import('leaflet');
+		L = leaflet.default;
+		imap.eachLayer((layer) => {
+			if (layer instanceof L.Marker) {
+				imap.removeLayer(layer);
+			}
+		});
+	}
 </script>
 
 <div {id} class="box" style="height: {height}vh"></div>

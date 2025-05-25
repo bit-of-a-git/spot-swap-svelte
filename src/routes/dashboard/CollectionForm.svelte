@@ -22,6 +22,7 @@
 				<label class="label" for="county">County</label>
 				<div class="select">
 					<select name="county" required>
+						<option value="" disabled selected>Select a county</option>
 						{#each countyList as county}
 							<option value={county}>Co. {county}</option>
 						{/each}

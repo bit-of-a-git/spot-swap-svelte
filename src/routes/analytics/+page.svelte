@@ -30,7 +30,7 @@
 		<div class="columns is-multiline">
 			<div class="column is-half">
 				<Card title="Collections By County" icon="fa-regular fa-map">
-					<Chart data={currentDataSets.collectionsByCounty} type="pie" />
+					<Chart data={currentDataSets.collectionsByCounty} type="pie" maxSlices="6" />
 				</Card>
 			</div>
 			<div class="column is-half">
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 </CollapsibleCard>
-
+<br />
 <CollapsibleCard>
 	<div slot="header" class="card-header-title">Statistics</div>
 	<div slot="body" class="p-5">
@@ -72,7 +72,6 @@
 						<div class="title">
 							{stats.topContributor.name} - {stats.topContributor.spotCount} spots
 						</div>
-						<div class="subtitle"></div>
 					</div>
 				</Card>
 			</div>

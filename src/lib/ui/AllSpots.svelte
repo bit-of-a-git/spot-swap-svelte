@@ -31,7 +31,7 @@
 					{#if browser}
 						{#key spot.images}
 							<Carousel>
-								{#each spot.images as img, index (img)}
+								{#each spot.images as img}
 									<div class="card-image">
 										<img src={img} alt="Image of {spot.name}" />
 									</div>

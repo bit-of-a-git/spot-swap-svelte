@@ -92,7 +92,7 @@
 						</div>
 					</div>
 				{/if}
-				<div class="subtitle">Upload Image</div>
+				<div class="subtitle">Upload New Image</div>
 				<div id="file-select" class="file has-name is-fullwidth">
 					<label class="file-label">
 						<input

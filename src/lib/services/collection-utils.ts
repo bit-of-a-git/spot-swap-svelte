@@ -12,18 +12,26 @@ import LeafletMap from '$lib/ui/LeafletMap.svelte';
 
 export function computeByCounty(collectionList: Collection[]) {
 	collectionList.forEach((collection) => {
-		const countyIndex = countyList.indexOf(collection.county);
-		if (countyIndex !== -1) {
-			currentDataSets.collectionsByCounty.datasets[0].values[countyIndex] += 1;
+		const labelIndex = currentDataSets.collectionsByCounty.labels.indexOf(collection.county);
+		if (labelIndex === -1) {
+			currentDataSets.collectionsByCounty.labels.push(collection.county);
+			currentDataSets.collectionsByCounty.datasets[0].values.push(1);
+		} else {
+			// County already exists, increment its value
+			currentDataSets.collectionsByCounty.datasets[0].values[labelIndex] += 1;
 		}
 	});
 }
 
 export function userComputeByCounty(collectionList: Collection[]) {
 	collectionList.forEach((collection) => {
-		const countyIndex = countyList.indexOf(collection.county);
-		if (countyIndex !== -1) {
-			currentDataSets.userCollectionsByCounty.datasets[0].values[countyIndex] += 1;
+		const labelIndex = currentDataSets.userCollectionsByCounty.labels.indexOf(collection.county);
+		if (labelIndex === -1) {
+			currentDataSets.userCollectionsByCounty.labels.push(collection.county);
+			currentDataSets.userCollectionsByCounty.datasets[0].values.push(1);
+		} else {
+			// County already exists, increment its value
+			currentDataSets.userCollectionsByCounty.datasets[0].values[labelIndex] += 1;
 		}
 	});
 }
@@ -113,6 +121,7 @@ export function findUserWithMostSpots(collections: Collection[], users: User[]) 
 }
 
 export async function refreshCollectionMap(map: LeafletMap, spots: Spot[]) {
+	map.clearMarkers();
 	spots.forEach((spot: Spot) => {
 		const popup = `<b>${spot.name}</b><br><i>${spot.category}</i><br>${spot.description}`;
 		map.addMarker(spot.latitude, spot.longitude, popup);
@@ -126,7 +135,7 @@ export async function refreshSpotswapState(collections: Collection[]) {
 }
 
 export async function refreshSpotswapAnalytics(users: User[]) {
-	currentDataSets.collectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
+	currentDataSets.collectionsByCounty = { labels: [], datasets: [{ values: [] }] };
 	currentDataSets.spotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
 
 	computeByCounty(currentCollections.collections);
@@ -140,7 +149,7 @@ export async function refreshSpotswapAnalytics(users: User[]) {
 export async function refreshUserState(collections: Collection[]) {
 	userCollections.collections = collections;
 
-	currentDataSets.userCollectionsByCounty.datasets[0].values = Array(countyList.length).fill(0);
+	currentDataSets.userCollectionsByCounty = { labels: [], datasets: [{ values: [] }] };
 	currentDataSets.userSpotsByCategory.datasets[0].values = Array(categoryList.length).fill(0);
 
 	userComputeByCounty(userCollections.collections);

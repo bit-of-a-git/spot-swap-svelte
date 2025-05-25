@@ -15,10 +15,10 @@ export const currentCollection = $state({ collection: {} as Collection });
 
 export const currentDataSets = $state({
 	collectionsByCounty: {
-		labels: countyList,
+		labels: [] as string[],
 		datasets: [
 			{
-				values: Array(countyList.length).fill(0)
+				values: [] as number[]
 			}
 		]
 	},
@@ -31,10 +31,10 @@ export const currentDataSets = $state({
 		]
 	},
 	userCollectionsByCounty: {
-		labels: countyList,
+		labels: [] as string[],
 		datasets: [
 			{
-				values: Array(countyList.length).fill(0)
+				values: [] as number[]
 			}
 		]
 	},
@@ -42,7 +42,7 @@ export const currentDataSets = $state({
 		labels: categoryList,
 		datasets: [
 			{
-				values: Array(countyList.length).fill(0)
+				values: Array(categoryList.length).fill(0)
 			}
 		]
 	}

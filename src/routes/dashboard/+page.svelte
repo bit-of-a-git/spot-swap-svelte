@@ -51,7 +51,7 @@
 		<div class="columns">
 			<div class="column">
 				<Card title="Collections per County" icon="fa-regular fa-map">
-					<Chart data={currentDataSets.userCollectionsByCounty} type="pie" />
+					<Chart data={currentDataSets.userCollectionsByCounty} type="pie" maxSlices="6" />
 				</Card>
 			</div>
 			<div class="column">
