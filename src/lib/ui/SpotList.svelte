@@ -5,16 +5,20 @@
   import Carousel from 'svelte-carousel';
   import { browser } from '$app/environment';
 
+  // Initialises imageFile using $state for reactivity
   let imagefile = $state(null);
 
+  // Uses $derived to create a reactive display name for the image file
   let imageDisplayName = $derived(
     imagefile && imagefile[0] ? imagefile[0].name : 'No File Selected'
   );
 
+  // Takes the event object and updates the imagefile state
   function handleFileChange(event) {
     imagefile = event.target.files;
   }
 
+  // This function is called after various actions. It fetches the collection and then calls another function to update the state.
   async function refresh() {
     const collection = await spotswapService.getCollectionById(
       currentCollection.collection._id,
