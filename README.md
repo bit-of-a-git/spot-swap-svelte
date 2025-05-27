@@ -74,6 +74,7 @@ Much of the code here was taken from SETU's Full Stack Web Development 1 course,
 
 Other sources referenced:
 - https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API/Using_the_Geolocation_API
+- https://blog.yuki-dev.com/blogs/x2lxp2szm
 
 
 Images were taken from the following sources:
