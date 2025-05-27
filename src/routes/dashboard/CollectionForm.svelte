@@ -16,6 +16,7 @@
           name="title"
           type="text"
           placeholder="Enter collection name"
+          required
         />
       </div>
       <div class="field">

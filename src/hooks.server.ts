@@ -1,6 +1,8 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 
+// Credit to https://blog.yuki-dev.com/blogs/x2lxp2szm
+
 // Protected path list
 const protectedPaths = ['/analytics', '/collection', '/dashboard', '/spots'];
 
