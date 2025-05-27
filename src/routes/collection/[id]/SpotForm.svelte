@@ -37,7 +37,14 @@
     <div class="column is-half">
       <div class="field">
         <label class="label" for="name">Name</label>
-        <input class="input" id="name" name="name" type="text" placeholder="Enter spot name" />
+        <input
+          class="input"
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Enter spot name"
+          required
+        />
       </div>
     </div>
     <div class="column is-half">
@@ -64,6 +71,7 @@
           name="description"
           type="text"
           placeholder="Enter Description"
+          required
         />
       </div>
     </div>
